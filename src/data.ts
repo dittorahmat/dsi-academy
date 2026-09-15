@@ -64,25 +64,25 @@ export const umkmTraining: UmkmTrainingData = {
   ],
   jadwal: [
     {
-      hari: "Hari 1 (Jumat)",
+      hari: "Hari 1 (Sabtu)",
       tanggal: "3 Oktober 2026",
       jam: "08.30 – 14.00 WIB",
       catatan: "Ada 2x break istirahat",
     },
     {
-      hari: "Hari 2 (Senin)",
+      hari: "Hari 2 (Selasa)",
       tanggal: "6 Oktober 2026",
       jam: "20.00 – 22.00 WIB",
       catatan: "Sesi malam santai",
     },
     {
-      hari: "Hari 3 (Rabu)",
+      hari: "Hari 3 (Kamis)",
       tanggal: "8 Oktober 2026",
       jam: "20.00 – 22.00 WIB",
       catatan: "Sesi malam santai",
     },
     {
-      hari: "Hari 4 (Jumat)",
+      hari: "Hari 4 (Sabtu)",
       tanggal: "10 Oktober 2026",
       jam: "10.00 – 12.00 WIB",
       catatan: "Demo & kelulusan",

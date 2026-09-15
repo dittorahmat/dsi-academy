@@ -9,6 +9,7 @@ import {
   ExternalLink,
   GraduationCap,
   Image as ImageIcon,
+  Laptop,
   MapPin,
   Menu,
   MessageCircle,
@@ -35,7 +36,7 @@ import {
 /* ---------------------------------- header --------------------------------- */
 
 const NAV = [
-  { href: '#umkm', label: 'Program UMKM' },
+  { href: '#program-ai', label: 'Coding with AI' },
   { href: '#kelas', label: 'Kelas Data Eng' },
   { href: '#alur', label: 'Alur belajar' },
   { href: '#jadwal', label: 'Jadwal' },
@@ -71,10 +72,10 @@ function Header() {
         </nav>
         <div className="flex items-center gap-3">
           <a
-            href="#umkm"
+            href="#program-ai"
             className="hidden rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3.5 py-2 text-xs font-semibold text-[#1877f2] transition-colors hover:bg-[#dbeafe] sm:inline-block"
           >
-            Opsi UMKM Rp 350rb
+            Coding with AI Rp 350rb
           </a>
           <a
             href="#daftar"
@@ -106,11 +107,11 @@ function Header() {
             </a>
           ))}
           <a
-            href="#umkm"
+            href="#program-ai"
             onClick={() => setOpen(false)}
             className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#1877f2]"
           >
-            Pelatihan UMKM — Rp 350.000
+            Pelatihan Coding with AI — Rp 350.000
           </a>
           <a
             href="#daftar"
@@ -125,103 +126,16 @@ function Header() {
   );
 }
 
-/* ------------------------------- umkm card -------------------------------- */
+/* ---------------------------- hero & poster showcase ------------------------------ */
 
-function UmkmCard() {
+function HeroPosterShowcase() {
   return (
-    <div id="umkm" className="scroll-mt-24 rounded-2xl border-2 border-[#1877f2]/30 bg-white p-6 shadow-xl ring-4 ring-[#1877f2]/5">
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
-        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e7f3ff] px-3 py-1 text-xs font-bold text-[#1877f2]">
-          <Sparkles size={14} className="text-[#1877f2]" aria-hidden="true" /> Batch Khusus UMKM
-        </span>
-        <div className="text-right">
-          <span className="text-xs text-slate-400 line-through mr-2">{umkmTraining.hargaCoret}</span>
-          <span className="font-display text-2xl font-extrabold text-[#1877f2]">{umkmTraining.harga}</span>
-          <span className="block text-[11px] font-medium text-slate-500">Investasi 4 hari intensif</span>
-        </div>
-      </div>
-
-      <div className="mt-4">
-        <h2 className="font-display text-xl font-bold leading-snug text-slate-900">
-          Digitalisasi Bisnis UMKM: Bangun Sistem Kasir, Inventory & Akuntansi dengan AI
-        </h2>
-        <p className="mt-1.5 text-sm text-slate-600">
-          Pelajari cara membuat dan memakai aplikasi bisnis sendiri tanpa ribet koding manual, dibantu AI praktis.
-        </p>
-      </div>
-
-      {/* Bonus 3 Aplikasi */}
-      <div className="mt-5 rounded-xl border border-slate-200 bg-[#f8fafc] p-4">
-        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700">
-          <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial 3 Aplikasi Siap Pakai:
-        </p>
-        <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-3">
-          {umkmTraining.bonusAplikasi.map((app) => (
-            <div key={app.nama} className="rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-2xs">
-              <p className="font-semibold text-xs text-slate-900">{app.nama}</p>
-              <p className="text-[11px] text-slate-500">{app.keterangan}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Jadwal 4 Pertemuan */}
-      <div className="mt-4 space-y-2">
-        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700">
-          <CalendarDays size={15} className="text-[#1877f2]" aria-hidden="true" /> Jadwal Live via Zoom:
-        </p>
-        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs">
-          {umkmTraining.jadwal.map((j) => (
-            <div key={j.tanggal} className="flex items-start justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
-              <div>
-                <span className="font-semibold text-slate-900">{j.hari}</span>
-                <span className="block text-[11px] text-slate-500">{j.tanggal}</span>
-              </div>
-              <div className="text-right">
-                <span className="font-mono font-medium text-[#1877f2]">{j.jam}</span>
-                {j.catatan ? <span className="block text-[10px] text-slate-500">{j.catatan}</span> : null}
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Action CTA */}
-      <div className="mt-6 flex flex-col sm:flex-row gap-3">
-        <a
-          href={waLink(umkmTraining.waMessage)}
-          target="_blank"
-          rel="noreferrer"
-          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#1877f2] px-5 py-3 text-center text-sm font-bold text-white shadow-sm transition-all hover:bg-[#166fe5] hover:shadow"
-        >
-          <MessageCircle size={18} aria-hidden="true" />
-          Daftar via WA (Rp 350rb)
-        </a>
-        <a
-          href="#poster-resmi"
-          className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
-        >
-          <ImageIcon size={16} className="text-[#1877f2]" aria-hidden="true" />
-          Lihat Poster
-        </a>
-      </div>
-      <p className="mt-2 text-center text-[11px] text-slate-500">
-        Konfirmasi pendaftaran & konsultasi via WhatsApp resmi (+62 813-1909-5252 / Rahmat).
-      </p>
-    </div>
-  );
-}
-
-/* ---------------------------- poster showcase ------------------------------ */
-
-function PosterShowcase() {
-  return (
-    <section id="poster-resmi" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
+    <section id="program-ai" className="relative border-b border-slate-200 bg-white py-12 md:py-16 overflow-hidden">
       <div className="mx-auto max-w-6xl px-5">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           {/* Kolom Kiri: Tampilan Poster */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="group relative max-w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
+          <div className="lg:col-span-5 flex flex-col items-center">
+            <div className="group relative w-full max-w-[420px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
               <a href="/Ads_TrainingIT.webp" target="_blank" rel="noreferrer" className="block relative">
                 <picture>
                   <source srcSet="/Ads_TrainingIT.webp" type="image/webp" />
@@ -229,7 +143,7 @@ function PosterShowcase() {
                     src="/Ads_TrainingIT.png"
                     alt="Poster Resmi Pelatihan Praktis Coding with AI"
                     className="w-full h-auto rounded-xl object-contain transition-transform duration-300 group-hover:scale-[1.01]"
-                    loading="lazy"
+                    loading="eager"
                     width="800"
                     height="1200"
                   />
@@ -241,132 +155,114 @@ function PosterShowcase() {
                 </div>
               </a>
               <p className="py-2 text-center text-[11px] font-medium text-slate-500">
-                Klik gambar untuk membuka / mengunduh poster ukuran penuh
+                Klik poster untuk memperbesar / mengunduh resolusi asli
               </p>
             </div>
-          </div>
 
-          {/* Kolom Kanan: Rincian & Pendaftaran */}
-          <div className="lg:col-span-7">
-            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#1877f2]">
-              <Sparkles size={14} aria-hidden="true" /> Batch Resmi Mulai 3 Oktober 2026
-            </span>
-            <h2 className="mt-3 text-2xl font-extrabold text-slate-900 sm:text-3xl">
-              Pelatihan Praktis Coding with AI: Solusi Nyata Karier & Bisnis Anda
-            </h2>
-            <p className="mt-3 text-sm leading-relaxed text-slate-600">
-              Program ini didesain khusus agar materi mudah dipahami dan langsung dapat diterapkan. Cocok bagi Fresh Graduate IT yang ingin memperkuat portofolio, praktisi IT yang ingin memanfaatkan AI tools modern, hingga pelaku UMKM yang ingin otomatisasi kasir, stok, dan pencatatan keuangan.
-            </p>
-
-            {/* Highlights */}
-            <div className="mt-6 grid gap-3 sm:grid-cols-2">
-              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
-                <p className="text-xs font-bold text-slate-900">Target Semua Kalangan</p>
-                <p className="mt-1 text-xs text-slate-600">Fresh graduate, pekerja profesional, pelaku UMKM, & masyarakat umum.</p>
+            {/* Badge Jaminan Kualitas */}
+            <div className="mt-4 grid grid-cols-2 gap-2 w-full max-w-[420px] text-center text-xs">
+              <div className="rounded-lg border border-slate-200 bg-slate-50 py-2 px-1">
+                <p className="font-bold text-slate-800">Hands-on Project</p>
+                <p className="text-[10px] text-slate-500">Praktik langsung buat sistem</p>
               </div>
-              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
-                <p className="text-xs font-bold text-slate-900">Fleksibel & Terjadwal</p>
-                <p className="mt-1 text-xs text-slate-600">100% Online via Google Meet + rekaman dan materi lengkap.</p>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
-                <p className="text-xs font-bold text-slate-900">Bonus 3 Aplikasi Bisnis</p>
-                <p className="mt-1 text-xs text-slate-600">Aplikasi POS Kasir, Sistem Inventory, dan Akuntansi Sederhana siap pakai.</p>
-              </div>
-              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
-                <p className="text-xs font-bold text-slate-900">Sertifikat Resmi Kelulusan</p>
-                <p className="mt-1 text-xs text-slate-600">Sebagai bukti kompetensi nyata untuk portofolio atau kredensial bisnis.</p>
-              </div>
-            </div>
-
-            {/* Price tag & CTA */}
-            <div className="mt-6 flex flex-wrap items-center gap-4 rounded-xl border border-blue-200 bg-blue-50/70 p-4">
-              <div>
-                <p className="text-xs font-semibold text-slate-500">Harga Promo Terbatas:</p>
-                <div className="flex items-baseline gap-2">
-                  <span className="text-sm text-slate-400 line-through">Rp 1.000.000</span>
-                  <span className="font-display text-2xl font-extrabold text-[#1877f2]">Rp 350.000</span>
-                </div>
-              </div>
-              <div className="ml-auto flex flex-wrap gap-2.5">
-                <a
-                  href={waLink('Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Batch 3-10 Oktober) seharga Rp 350.000.')}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="inline-flex items-center gap-2 rounded-xl bg-[#1877f2] px-5 py-2.5 text-sm font-bold text-white shadow-xs transition-colors hover:bg-[#166fe5]"
-                >
-                  <MessageCircle size={18} aria-hidden="true" />
-                  Daftar via WhatsApp (Rahmat)
-                </a>
+              <div className="rounded-lg border border-slate-200 bg-slate-50 py-2 px-1">
+                <p className="font-bold text-slate-800">100% Live Practice</p>
+                <p className="text-[10px] text-slate-500">via Google Meet + Rekaman</p>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-  );
-}
 
-/* ------------------------------- hero section ------------------------------ */
-
-const STATS: Array<{ angka: string; arti: string }> = [
-  { angka: '≤ 25', arti: 'peserta maksimal per kelas (interaktif)' },
-  { angka: '100%', arti: 'sesi live interaktif bareng mentor' },
-  { angka: '1 Modul', arti: '1 project nyata masuk portofolio' },
-  { angka: 'Lifetime', arti: 'akses rekaman & grup diskusi' },
-];
-
-function Hero() {
-  return (
-    <section id="atas" className="relative border-b border-slate-200 bg-white overflow-hidden">
-      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-12 md:pt-16">
-        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-semibold text-[#1877f2]">
-          <span className="h-2 w-2 rounded-full bg-[#1877f2]" />
-          Pusat Pelatihan Teknologi Terapan & Data Indonesia
-        </div>
-
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          {/* Sisi Kiri: Jalur Profesional Data Engineer */}
-          <div className="lg:col-span-6 flex flex-col justify-between pt-2">
+          {/* Kolom Kanan: Detail Program, Jadwal Lengkap, & Pendaftaran */}
+          <div className="lg:col-span-7 flex flex-col justify-between">
             <div>
-              <span className="inline-block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                JALUR 1: DATA ENGINEERING PRO
-              </span>
-              <h1 className="text-3xl font-extrabold leading-[1.18] text-slate-900 sm:text-4xl">
-                Belajar Data Engineering sampai bisa deploy pipeline beneran.
+              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#1877f2]">
+                  <Sparkles size={14} aria-hidden="true" /> Batch Resmi Mulai 3 Oktober 2026
+                </span>
+                <span className="text-xs font-medium text-slate-500">Format: 100% Online via Google Meet</span>
+              </div>
+
+              <h1 className="mt-4 text-3xl font-extrabold leading-snug text-slate-900 sm:text-4xl">
+                Pelatihan Praktis Coding with AI: Solusi Nyata Karier & Bisnis Anda
               </h1>
-              <p className="mt-4 text-base leading-relaxed text-slate-600">
-                Kelas intensif 2 kali seminggu bersama praktisi data industri. Tiap modul berakhir dengan project nyata yang langsung masuk portofolio kerja Anda.
+              <p className="mt-2 text-xs font-semibold text-[#1877f2]">
+                Untuk Fresh Graduate IT, Pengalaman IT yang Ingin Explore AI, Pelaku UMKM & Umum
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a
-                  href="#kelas"
-                  className="rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-slate-800"
-                >
-                  Lihat 6 Kelas Reguler
-                </a>
-                <a
-                  href="#daftar"
-                  className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-2xs transition-colors hover:bg-slate-50"
-                >
-                  Konsultasi Gratis
-                </a>
+              <p className="mt-3 text-sm leading-relaxed text-slate-600">
+                Bangun skill digital terapan, kuasai bantuan AI tools modern, dan ciptakan solusi nyata tanpa ribet. Pelatihan ini dirancang praktis, mudah dipahami, dan langsung menghasilkan aplikasi siap pakai.
+              </p>
+
+              {/* Bonus 3 Aplikasi */}
+              <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
+                <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
+                  <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial 3 Aplikasi Bisnis Siap Pakai:
+                </p>
+                <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-3 text-xs">
+                  {umkmTraining.bonusAplikasi.map((app) => (
+                    <div key={app.nama} className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-2xs">
+                      <p className="font-bold text-slate-900">{app.nama}</p>
+                      <p className="mt-0.5 text-[11px] text-slate-500">{app.keterangan}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Jadwal 4 Pertemuan (Akurat & Terverifikasi) */}
+              <div className="mt-5 space-y-2">
+                <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
+                  <CalendarDays size={16} className="text-[#1877f2]" aria-hidden="true" /> Jadwal Live 4 Sesi (Google Meet):
+                </p>
+                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs">
+                  {umkmTraining.jadwal.map((j) => (
+                    <div key={j.tanggal} className="flex items-start justify-between rounded-xl border border-slate-200 bg-white p-3 shadow-2xs">
+                      <div>
+                        <span className="font-bold text-slate-900">{j.hari}</span>
+                        <span className="block text-[11px] text-slate-500">{j.tanggal}</span>
+                      </div>
+                      <div className="text-right">
+                        <span className="font-mono font-bold text-[#1877f2]">{j.jam}</span>
+                        {j.catatan ? <span className="block text-[10px] text-slate-500">{j.catatan}</span> : null}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
 
-            <dl className="mt-10 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4">
-              {STATS.map((s) => (
-                <div key={s.arti}>
-                  <dt className="sr-only">{s.arti}</dt>
-                  <dd className="font-display text-2xl font-bold text-slate-900">{s.angka}</dd>
-                  <dd className="mt-0.5 text-xs text-slate-500 leading-snug">{s.arti}</dd>
+            {/* Price tag & CTA Bar */}
+            <div className="mt-8 rounded-2xl border-2 border-[#1877f2]/20 bg-white p-5 shadow-sm ring-4 ring-[#1877f2]/5">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <p className="text-xs font-medium text-slate-500">Investasi Pelatihan (Promo Batch Oktober):</p>
+                  <div className="flex items-baseline gap-2">
+                    <span className="text-sm text-slate-400 line-through">{umkmTraining.hargaCoret}</span>
+                    <span className="font-display text-3xl font-extrabold text-[#1877f2]">{umkmTraining.harga}</span>
+                    <span className="text-xs font-semibold text-slate-600">/ peserta (4 sesi lengkap)</span>
+                  </div>
                 </div>
-              ))}
-            </dl>
-          </div>
 
-          {/* Sisi Kanan: Jalur UMKM (Above-The-Fold) */}
-          <div className="lg:col-span-6">
-            <UmkmCard />
+                <div className="flex flex-wrap gap-2.5">
+                  <a
+                    href={waLink('Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Batch 3-10 Oktober) seharga Rp 350.000.')}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-2 rounded-xl bg-[#1877f2] px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-[#166fe5] hover:shadow"
+                  >
+                    <MessageCircle size={18} aria-hidden="true" />
+                    Daftar Sekarang via WA
+                  </a>
+                  <a
+                    href="#kelas"
+                    className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+                  >
+                    Lihat Program Data Eng
+                  </a>
+                </div>
+              </div>
+              <p className="mt-2 text-center sm:text-left text-[11px] text-slate-500">
+                Pendaftaran & konsultasi jadwal resmi langsung terhubung dengan WhatsApp Mas Rahmat (+62 813-1909-5252).
+              </p>
+            </div>
           </div>
         </div>
       </div>
@@ -378,9 +274,9 @@ function Hero() {
 
 const KEUNGGULAN = [
   {
-    ikon: Users,
-    judul: 'Kelas kecil & interaktif',
-    isi: 'Mentor mendampingi progres setiap peserta. Pertanyaan dijawab langsung dan tugas mendapat review detail.',
+    ikon: Laptop,
+    judul: 'Kurikulum praktis & siap pakai',
+    isi: 'Materi langkah demi langkah tanpa teori bertele-tele. Langsung praktik membuat aplikasi bisnis dan pipeline yang siap dipakai.',
   },
   {
     ikon: Workflow,
@@ -1170,8 +1066,7 @@ export default function App() {
         Lewati ke konten utama
       </a>
       <main id="konten">
-        <Hero />
-        <PosterShowcase />
+        <HeroPosterShowcase />
         <Keunggulan />
         <Katalog
           filter={filter}
