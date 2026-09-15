@@ -6,23 +6,37 @@ import {
   CheckCircle2,
   ChevronDown,
   Clock,
-  Database,
+  ExternalLink,
   GraduationCap,
+  Image as ImageIcon,
   MapPin,
   Menu,
   MessageCircle,
+  PackageCheck,
   Send,
+  Sparkles,
   Star,
   Users,
   Workflow,
   X,
 } from 'lucide-react';
-import { batches, courseName, courses, faqs, instructors, testimonials, waLink, type Course } from './data.ts';
+import {
+  batches,
+  courseName,
+  courses,
+  faqs,
+  instructors,
+  testimonials,
+  umkmTraining,
+  waLink,
+  type Course,
+} from './data.ts';
 
 /* ---------------------------------- header --------------------------------- */
 
 const NAV = [
-  { href: '#kelas', label: 'Kelas' },
+  { href: '#umkm', label: 'Program UMKM' },
+  { href: '#kelas', label: 'Kelas Data Eng' },
   { href: '#alur', label: 'Alur belajar' },
   { href: '#jadwal', label: 'Jadwal' },
   { href: '#instruktur', label: 'Instruktur' },
@@ -33,34 +47,44 @@ function Header() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-white/10 bg-[#0b0f19]/90 backdrop-blur">
+    <header className="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur shadow-xs">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5">
-        <a href="#atas" className="flex items-center gap-3">
-          <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0b4596] font-display text-sm font-bold text-[#cca43b]">
-            DS
-          </span>
-          <span className="leading-tight">
-            <span className="block font-display text-[15px] font-semibold text-white">Integra Academy</span>
-            <span className="block text-xs text-slate-400">by Daya Solusi Integra</span>
+        <a href="#atas" className="flex items-center gap-2.5">
+          <img
+            src="/dsi-logo.webp"
+            alt="Logo PT Daya Solusi Integra"
+            className="h-10 w-auto object-contain"
+            width="120"
+            height="40"
+          />
+          <span className="hidden sm:inline-block border-l border-slate-300 pl-2.5 leading-tight">
+            <span className="block font-display text-[15px] font-bold text-slate-900">Integra Academy</span>
+            <span className="block text-[11px] font-medium text-slate-500">Tech & AI Training</span>
           </span>
         </a>
         <nav className="hidden items-center gap-7 md:flex" aria-label="Navigasi utama">
           {NAV.map((n) => (
-            <a key={n.href} href={n.href} className="text-sm text-slate-300 transition-colors hover:text-white">
+            <a key={n.href} href={n.href} className="text-sm font-medium text-slate-600 transition-colors hover:text-[#1877f2]">
               {n.label}
             </a>
           ))}
         </nav>
         <div className="flex items-center gap-3">
           <a
-            href="#daftar"
-            className="hidden rounded-lg bg-[#cca43b] px-4 py-2 text-sm font-semibold text-[#0b0f19] transition-colors hover:bg-[#d9b455] md:inline-block"
+            href="#umkm"
+            className="hidden rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3.5 py-2 text-xs font-semibold text-[#1877f2] transition-colors hover:bg-[#dbeafe] sm:inline-block"
           >
-            Daftar sekarang
+            Opsi UMKM Rp 350rb
+          </a>
+          <a
+            href="#daftar"
+            className="hidden rounded-lg bg-[#1877f2] px-4 py-2 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#166fe5] md:inline-block"
+          >
+            Daftar Sekarang
           </a>
           <button
             type="button"
-            className="rounded-lg p-2 text-slate-200 hover:bg-white/10 md:hidden"
+            className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 md:hidden"
             aria-expanded={open}
             aria-label={open ? 'Tutup menu' : 'Buka menu'}
             onClick={() => setOpen((v) => !v)}
@@ -70,23 +94,30 @@ function Header() {
         </div>
       </div>
       {open ? (
-        <nav className="border-t border-white/10 px-5 py-3 md:hidden" aria-label="Navigasi seluler">
+        <nav className="border-t border-slate-200 bg-white px-5 py-3 shadow-lg md:hidden" aria-label="Navigasi seluler">
           {NAV.map((n) => (
             <a
               key={n.href}
               href={n.href}
               onClick={() => setOpen(false)}
-              className="block rounded-lg px-2 py-2.5 text-[15px] text-slate-200 hover:bg-white/5"
+              className="block rounded-lg px-2 py-2.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50"
             >
               {n.label}
             </a>
           ))}
           <a
+            href="#umkm"
+            onClick={() => setOpen(false)}
+            className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#1877f2]"
+          >
+            Pelatihan UMKM — Rp 350.000
+          </a>
+          <a
             href="#daftar"
             onClick={() => setOpen(false)}
-            className="mt-2 block rounded-lg bg-[#cca43b] px-3 py-2.5 text-center text-[15px] font-semibold text-[#0b0f19]"
+            className="mt-2 block rounded-lg bg-[#1877f2] px-3 py-2.5 text-center text-[15px] font-semibold text-white"
           >
-            Daftar sekarang
+            Daftar Sekarang
           </a>
         </nav>
       ) : null}
@@ -94,89 +125,249 @@ function Header() {
   );
 }
 
-/* ------------------------------- hero visual ------------------------------ */
+/* ------------------------------- umkm card -------------------------------- */
 
-const pipelineWindow = (
-  <div className="overflow-hidden rounded-xl border border-white/10 bg-[#0d1e3d] shadow-2xl" aria-hidden="true">
-    <div className="flex items-center gap-1.5 border-b border-white/10 px-4 py-3">
-      <span className="h-2.5 w-2.5 rounded-full bg-red-400/80" />
-      <span className="h-2.5 w-2.5 rounded-full bg-yellow-400/80" />
-      <span className="h-2.5 w-2.5 rounded-full bg-green-400/80" />
-      <span className="ml-3 text-xs text-slate-400">etl_penjualan.py — production</span>
+function UmkmCard() {
+  return (
+    <div id="umkm" className="scroll-mt-24 rounded-2xl border-2 border-[#1877f2]/30 bg-white p-6 shadow-xl ring-4 ring-[#1877f2]/5">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-4">
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-[#e7f3ff] px-3 py-1 text-xs font-bold text-[#1877f2]">
+          <Sparkles size={14} className="text-[#1877f2]" aria-hidden="true" /> Batch Khusus UMKM
+        </span>
+        <div className="text-right">
+          <span className="text-xs text-slate-400 line-through mr-2">{umkmTraining.hargaCoret}</span>
+          <span className="font-display text-2xl font-extrabold text-[#1877f2]">{umkmTraining.harga}</span>
+          <span className="block text-[11px] font-medium text-slate-500">Investasi 4 hari intensif</span>
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <h2 className="font-display text-xl font-bold leading-snug text-slate-900">
+          Digitalisasi Bisnis UMKM: Bangun Sistem Kasir, Inventory & Akuntansi dengan AI
+        </h2>
+        <p className="mt-1.5 text-sm text-slate-600">
+          Pelajari cara membuat dan memakai aplikasi bisnis sendiri tanpa ribet koding manual, dibantu AI praktis.
+        </p>
+      </div>
+
+      {/* Bonus 3 Aplikasi */}
+      <div className="mt-5 rounded-xl border border-slate-200 bg-[#f8fafc] p-4">
+        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700">
+          <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial 3 Aplikasi Siap Pakai:
+        </p>
+        <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-3">
+          {umkmTraining.bonusAplikasi.map((app) => (
+            <div key={app.nama} className="rounded-lg border border-slate-200/80 bg-white p-2.5 shadow-2xs">
+              <p className="font-semibold text-xs text-slate-900">{app.nama}</p>
+              <p className="text-[11px] text-slate-500">{app.keterangan}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Jadwal 4 Pertemuan */}
+      <div className="mt-4 space-y-2">
+        <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700">
+          <CalendarDays size={15} className="text-[#1877f2]" aria-hidden="true" /> Jadwal Live via Zoom:
+        </p>
+        <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs">
+          {umkmTraining.jadwal.map((j) => (
+            <div key={j.tanggal} className="flex items-start justify-between rounded-lg border border-slate-200 bg-white px-3 py-2">
+              <div>
+                <span className="font-semibold text-slate-900">{j.hari}</span>
+                <span className="block text-[11px] text-slate-500">{j.tanggal}</span>
+              </div>
+              <div className="text-right">
+                <span className="font-mono font-medium text-[#1877f2]">{j.jam}</span>
+                {j.catatan ? <span className="block text-[10px] text-slate-500">{j.catatan}</span> : null}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Action CTA */}
+      <div className="mt-6 flex flex-col sm:flex-row gap-3">
+        <a
+          href={waLink(umkmTraining.waMessage)}
+          target="_blank"
+          rel="noreferrer"
+          className="flex flex-1 items-center justify-center gap-2 rounded-xl bg-[#1877f2] px-5 py-3 text-center text-sm font-bold text-white shadow-sm transition-all hover:bg-[#166fe5] hover:shadow"
+        >
+          <MessageCircle size={18} aria-hidden="true" />
+          Daftar via WA (Rp 350rb)
+        </a>
+        <a
+          href="#poster-resmi"
+          className="inline-flex items-center justify-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
+        >
+          <ImageIcon size={16} className="text-[#1877f2]" aria-hidden="true" />
+          Lihat Poster
+        </a>
+      </div>
+      <p className="mt-2 text-center text-[11px] text-slate-500">
+        Konfirmasi pendaftaran & konsultasi via WhatsApp resmi (+62 813-1909-5252 / Rahmat).
+      </p>
     </div>
-    <pre className="overflow-x-auto p-5 font-mono text-[13px] leading-6">
-      <code>
-        <span className="text-slate-500"># DAG berjalan tiap jam 05:00 WIB</span>{'\n'}
-        <span className="text-slate-200">extract</span>
-        <span className="text-slate-500">  →  </span>
-        <span className="text-[#7fb3ff]">validate</span>
-        <span className="text-slate-500">  →  </span>
-        <span className="text-[#cca43b]">load_warehouse</span>
-        {'\n\n'}
-        <span className="text-green-400">✓  1.248.903 baris dimuat</span>{'\n'}
-        <span className="text-green-400">✓  0 baris gagal validasi</span>{'\n'}
-        <span className="text-slate-400">durasi 04:12 — selesai 05:04</span>
-      </code>
-    </pre>
-  </div>
-);
+  );
+}
+
+/* ---------------------------- poster showcase ------------------------------ */
+
+function PosterShowcase() {
+  return (
+    <section id="poster-resmi" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          {/* Kolom Kiri: Tampilan Poster */}
+          <div className="lg:col-span-5 flex justify-center">
+            <div className="group relative max-w-[400px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
+              <a href="/Ads_TrainingIT.webp" target="_blank" rel="noreferrer" className="block relative">
+                <picture>
+                  <source srcSet="/Ads_TrainingIT.webp" type="image/webp" />
+                  <img
+                    src="/Ads_TrainingIT.png"
+                    alt="Poster Resmi Pelatihan Praktis Coding with AI"
+                    className="w-full h-auto rounded-xl object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+                    loading="lazy"
+                    width="800"
+                    height="1200"
+                  />
+                </picture>
+                <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-slate-900/40 opacity-0 backdrop-blur-[2px] transition-opacity group-hover:opacity-100">
+                  <span className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-bold text-slate-900 shadow-md">
+                    <ExternalLink size={15} aria-hidden="true" /> Buka Poster Resolusi Penuh
+                  </span>
+                </div>
+              </a>
+              <p className="py-2 text-center text-[11px] font-medium text-slate-500">
+                Klik gambar untuk membuka / mengunduh poster ukuran penuh
+              </p>
+            </div>
+          </div>
+
+          {/* Kolom Kanan: Rincian & Pendaftaran */}
+          <div className="lg:col-span-7">
+            <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#1877f2]">
+              <Sparkles size={14} aria-hidden="true" /> Batch Resmi Mulai 3 Oktober 2026
+            </span>
+            <h2 className="mt-3 text-2xl font-extrabold text-slate-900 sm:text-3xl">
+              Pelatihan Praktis Coding with AI: Solusi Nyata Karier & Bisnis Anda
+            </h2>
+            <p className="mt-3 text-sm leading-relaxed text-slate-600">
+              Program ini didesain khusus agar materi mudah dipahami dan langsung dapat diterapkan. Cocok bagi Fresh Graduate IT yang ingin memperkuat portofolio, praktisi IT yang ingin memanfaatkan AI tools modern, hingga pelaku UMKM yang ingin otomatisasi kasir, stok, dan pencatatan keuangan.
+            </p>
+
+            {/* Highlights */}
+            <div className="mt-6 grid gap-3 sm:grid-cols-2">
+              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
+                <p className="text-xs font-bold text-slate-900">Target Semua Kalangan</p>
+                <p className="mt-1 text-xs text-slate-600">Fresh graduate, pekerja profesional, pelaku UMKM, & masyarakat umum.</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
+                <p className="text-xs font-bold text-slate-900">Fleksibel & Terjadwal</p>
+                <p className="mt-1 text-xs text-slate-600">100% Online via Google Meet + rekaman dan materi lengkap.</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
+                <p className="text-xs font-bold text-slate-900">Bonus 3 Aplikasi Bisnis</p>
+                <p className="mt-1 text-xs text-slate-600">Aplikasi POS Kasir, Sistem Inventory, dan Akuntansi Sederhana siap pakai.</p>
+              </div>
+              <div className="rounded-xl border border-slate-200 bg-[#f8fafc] p-3.5">
+                <p className="text-xs font-bold text-slate-900">Sertifikat Resmi Kelulusan</p>
+                <p className="mt-1 text-xs text-slate-600">Sebagai bukti kompetensi nyata untuk portofolio atau kredensial bisnis.</p>
+              </div>
+            </div>
+
+            {/* Price tag & CTA */}
+            <div className="mt-6 flex flex-wrap items-center gap-4 rounded-xl border border-blue-200 bg-blue-50/70 p-4">
+              <div>
+                <p className="text-xs font-semibold text-slate-500">Harga Promo Terbatas:</p>
+                <div className="flex items-baseline gap-2">
+                  <span className="text-sm text-slate-400 line-through">Rp 1.000.000</span>
+                  <span className="font-display text-2xl font-extrabold text-[#1877f2]">Rp 350.000</span>
+                </div>
+              </div>
+              <div className="ml-auto flex flex-wrap gap-2.5">
+                <a
+                  href={waLink('Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Batch 3-10 Oktober) seharga Rp 350.000.')}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="inline-flex items-center gap-2 rounded-xl bg-[#1877f2] px-5 py-2.5 text-sm font-bold text-white shadow-xs transition-colors hover:bg-[#166fe5]"
+                >
+                  <MessageCircle size={18} aria-hidden="true" />
+                  Daftar via WhatsApp (Rahmat)
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------- hero section ------------------------------ */
 
 const STATS: Array<{ angka: string; arti: string }> = [
-  { angka: '1.200+', arti: 'alumni dari 12 batch reguler dan corporate' },
-  { angka: '4,8/5', arti: 'rating kepuasan peserta angkatan terakhir' },
-  { angka: '25+', arti: 'perusahaan dan instansi mengirim timnya' },
-  { angka: '100%', arti: 'kelas berbasis project, bukan ceramah' },
+  { angka: '≤ 25', arti: 'peserta maksimal per kelas (interaktif)' },
+  { angka: '100%', arti: 'sesi live interaktif bareng mentor' },
+  { angka: '1 Modul', arti: '1 project nyata masuk portofolio' },
+  { angka: 'Lifetime', arti: 'akses rekaman & grup diskusi' },
 ];
 
 function Hero() {
   return (
-    <section id="atas" className="relative overflow-hidden">
-      <div
-        className="pointer-events-none absolute inset-0"
-        aria-hidden="true"
-        style={{ background: 'radial-gradient(700px 340px at 15% 0%, rgba(11,69,150,0.35), transparent 70%)' }}
-      />
-      <div className="relative mx-auto grid max-w-6xl gap-12 px-5 pb-14 pt-14 md:pt-20 lg:grid-cols-[1.05fr_0.95fr] lg:items-center">
-        <div>
-          <p className="mb-4 inline-block rounded-full border border-[#cca43b]/40 px-3 py-1 text-[13px] text-[#e3c86a]">
-            Pendaftaran batch Oktober–November 2026 dibuka
-          </p>
-          <h1 className="text-4xl font-bold leading-[1.12] text-white md:text-5xl">
-            Belajar Data Engineering sampai bisa deploy pipeline beneran.
-          </h1>
-          <p className="mt-5 max-w-xl text-lg leading-relaxed text-slate-300">
-            Kelas live 2 kali seminggu. Setiap modul berakhir dengan project yang masuk portofolio.
-            Mentornya praktisi yang sehari-hari pegang data production.
-          </p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a
-              href="#kelas"
-              className="rounded-lg bg-[#cca43b] px-6 py-3 font-semibold text-[#0b0f19] transition-colors hover:bg-[#d9b455]"
-            >
-              Lihat 6 kelas
-            </a>
-            <a
-              href="#daftar"
-              className="rounded-lg border border-white/20 px-6 py-3 font-semibold text-white transition-colors hover:border-white/40 hover:bg-white/5"
-            >
-              Konsultasi gratis
-            </a>
-          </div>
-          <dl className="mt-10 grid grid-cols-2 gap-x-6 gap-y-6 border-t border-white/10 pt-8 sm:grid-cols-4">
-            {STATS.map((s) => (
-              <div key={s.arti}>
-                <dt className="sr-only">{s.arti}</dt>
-                <dd className="font-display text-3xl font-bold text-white">{s.angka}</dd>
-                <dd className="mt-1 text-[13px] leading-snug text-slate-400">{s.arti}</dd>
-              </div>
-            ))}
-          </dl>
+    <section id="atas" className="relative border-b border-slate-200 bg-white overflow-hidden">
+      <div className="relative mx-auto max-w-6xl px-5 pb-16 pt-12 md:pt-16">
+        <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-semibold text-[#1877f2]">
+          <span className="h-2 w-2 rounded-full bg-[#1877f2]" />
+          Pusat Pelatihan Teknologi Terapan & Data Indonesia
         </div>
-        <div>
-          {pipelineWindow}
-          <p className="mt-3 text-[13px] text-slate-500">
-            Contoh output project peserta kelas ETL Airflow, batch 16.
-          </p>
+
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
+          {/* Sisi Kiri: Jalur Profesional Data Engineer */}
+          <div className="lg:col-span-6 flex flex-col justify-between pt-2">
+            <div>
+              <span className="inline-block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                JALUR 1: DATA ENGINEERING PRO
+              </span>
+              <h1 className="text-3xl font-extrabold leading-[1.18] text-slate-900 sm:text-4xl">
+                Belajar Data Engineering sampai bisa deploy pipeline beneran.
+              </h1>
+              <p className="mt-4 text-base leading-relaxed text-slate-600">
+                Kelas intensif 2 kali seminggu bersama praktisi data industri. Tiap modul berakhir dengan project nyata yang langsung masuk portofolio kerja Anda.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                <a
+                  href="#kelas"
+                  className="rounded-lg bg-slate-900 px-5 py-2.5 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-slate-800"
+                >
+                  Lihat 6 Kelas Reguler
+                </a>
+                <a
+                  href="#daftar"
+                  className="rounded-lg border border-slate-300 bg-white px-5 py-2.5 text-sm font-semibold text-slate-700 shadow-2xs transition-colors hover:bg-slate-50"
+                >
+                  Konsultasi Gratis
+                </a>
+              </div>
+            </div>
+
+            <dl className="mt-10 grid grid-cols-2 gap-4 border-t border-slate-200 pt-6 sm:grid-cols-4">
+              {STATS.map((s) => (
+                <div key={s.arti}>
+                  <dt className="sr-only">{s.arti}</dt>
+                  <dd className="font-display text-2xl font-bold text-slate-900">{s.angka}</dd>
+                  <dd className="mt-0.5 text-xs text-slate-500 leading-snug">{s.arti}</dd>
+                </div>
+              ))}
+            </dl>
+          </div>
+
+          {/* Sisi Kanan: Jalur UMKM (Above-The-Fold) */}
+          <div className="lg:col-span-6">
+            <UmkmCard />
+          </div>
         </div>
       </div>
     </section>
@@ -188,46 +379,42 @@ function Hero() {
 const KEUNGGULAN = [
   {
     ikon: Users,
-    judul: 'Kelas kecil, maksimal 25 orang',
-    isi: 'Mentor hafal progres tiap peserta. Pertanyaan tidak antre dan tugas selalu dapat review tertulis.',
+    judul: 'Kelas kecil & interaktif',
+    isi: 'Mentor mendampingi progres setiap peserta. Pertanyaan dijawab langsung dan tugas mendapat review detail.',
   },
   {
     ikon: Workflow,
-    judul: 'Satu modul, satu project jalan',
-    isi: 'Lulus kelas ETL artinya Anda punya DAG Airflow yang berjalan terjadwal, lengkap dengan data quality check.',
+    judul: 'Satu modul, satu hasil nyata',
+    isi: 'Lulus pelatihan artinya Anda membawa sistem yang benar-benar jalan, baik pipeline data maupun aplikasi toko.',
   },
   {
     ikon: Briefcase,
-    judul: 'Mentor dari industri, bukan full-time trainer',
-    isi: 'Pengajar kami lead data engineer dan analytics engineer yang PR code-nya direview tim production tiap hari.',
+    judul: 'Mentor praktisi industri nyata',
+    isi: 'Diajar langsung oleh lead engineer dan konsultan digital yang sehari-hari menangani sistem operasional production.',
   },
   {
     ikon: Award,
-    judul: 'Sertifikat plus review karier',
-    isi: 'Bootcamp 12 minggu termasuk simulasi interview, bedah CV, dan polesan LinkedIn sampai siap dilamar.',
+    judul: 'Sertifikat & dukungan karier/bisnis',
+    isi: 'Dilengkapi sertifikat resmi sebagai bukti kompetensi dan grup diskusi aktif yang tetap terbuka setelah pelatihan selesai.',
   },
 ];
 
 function Keunggulan() {
   return (
-    <section className="border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="max-w-2xl text-3xl font-bold text-white">Kenapa belajar di Integra Academy</h2>
-        <p className="mt-3 max-w-2xl text-slate-300">
-          Kami tidak mengejar jumlah peserta. Target kami sederhana: tiap lulusan punya bukti kerja yang bisa
-          ditunjukkan ke pemberi kerja.
+    <section className="border-b border-slate-200 bg-[#f0f2f5] py-14">
+      <div className="mx-auto max-w-6xl px-5">
+        <h2 className="text-2xl font-bold text-slate-900 md:text-3xl">Kenapa belajar di Integra Academy</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Target kami sederhana: tiap lulusan pulang membawa bukti kerja konkret yang bisa langsung diterapkan di kantor atau bisnis sendiri.
         </p>
-        <div className="mt-10 grid gap-x-10 gap-y-9 md:grid-cols-2">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
           {KEUNGGULAN.map((k) => (
-            <div key={k.judul} className="flex gap-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-lg bg-[#0b4596]/30 text-[#7fb3ff]">
-                <k.ikon size={22} aria-hidden="true" />
+            <div key={k.judul} className="card-hover rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+              <span className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#e7f3ff] text-[#1877f2]">
+                <k.ikon size={20} aria-hidden="true" />
               </span>
-              <div>
-                <h3 className="font-display text-lg font-semibold text-white">{k.judul}</h3>
-                <p className="mt-1.5 leading-relaxed text-slate-300">{k.isi}</p>
-              </div>
+              <h3 className="mt-3 font-display text-base font-bold text-slate-900">{k.judul}</h3>
+              <p className="mt-1.5 text-xs leading-relaxed text-slate-600">{k.isi}</p>
             </div>
           ))}
         </div>
@@ -239,44 +426,51 @@ function Keunggulan() {
 /* ---------------------------------- katalog -------------------------------- */
 
 function levelWarna(level: Course['level']) {
-  if (level === 'Pemula') return 'bg-emerald-400/15 text-emerald-300';
-  if (level === 'Menengah') return 'bg-sky-400/15 text-sky-300';
-  return 'bg-violet-400/15 text-violet-300';
+  if (level === 'Pemula') return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
+  if (level === 'Menengah') return 'bg-sky-50 text-sky-700 border border-sky-200';
+  return 'bg-purple-50 text-purple-700 border border-purple-200';
 }
 
-function CourseCard({ course, terbuka, onToggle, onDaftar }: {
+function CourseCard({
+  course,
+  terbuka,
+  onToggle,
+  onDaftar,
+}: {
   course: Course;
   terbuka: boolean;
   onToggle: () => void;
   onDaftar: () => void;
 }) {
   return (
-    <article className="card-hover glass flex flex-col rounded-xl p-6">
+    <article className="card-hover flex flex-col rounded-xl border border-slate-200 bg-white p-6 shadow-2xs">
       <div className="flex flex-wrap items-center gap-2 text-xs">
-        <span className="rounded-full bg-white/10 px-2.5 py-1 font-medium text-slate-200">{course.kategori}</span>
+        <span className="rounded-full bg-slate-100 px-2.5 py-1 font-medium text-slate-700">{course.kategori}</span>
         <span className={`rounded-full px-2.5 py-1 font-medium ${levelWarna(course.level)}`}>{course.level}</span>
         {course.badge ? (
-          <span className="rounded-full bg-[#cca43b]/20 px-2.5 py-1 font-semibold text-[#e3c86a]">{course.badge}</span>
+          <span className="rounded-full bg-blue-50 px-2.5 py-1 font-bold text-[#1877f2] border border-blue-200">
+            {course.badge}
+          </span>
         ) : null}
       </div>
-      <h3 className="mt-4 font-display text-xl font-semibold text-white">{course.judul}</h3>
-      <p className="mt-2 flex-1 text-[15px] leading-relaxed text-slate-300">{course.deskripsi}</p>
-      <p className="mt-3 flex items-center gap-2 text-sm text-slate-400">
-        <Clock size={15} aria-hidden="true" /> {course.durasi}
+      <h3 className="mt-4 font-display text-xl font-bold text-slate-900">{course.judul}</h3>
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-slate-600">{course.deskripsi}</p>
+      <p className="mt-3 flex items-center gap-2 text-xs font-medium text-slate-500">
+        <Clock size={15} aria-hidden="true" className="text-slate-400" /> {course.durasi}
       </p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {course.tools.map((t) => (
-          <span key={t} className="rounded bg-white/5 px-2 py-1 font-mono text-xs text-slate-300">
+          <span key={t} className="rounded bg-slate-100 px-2 py-1 font-mono text-xs text-slate-700">
             {t}
           </span>
         ))}
       </div>
-      <div className="mt-4 border-t border-white/10 pt-4">
+      <div className="mt-4 border-t border-slate-100 pt-4">
         <button
           type="button"
           onClick={onToggle}
           aria-expanded={terbuka}
-          className="flex w-full items-center justify-between text-left text-sm font-semibold text-white"
+          className="flex w-full items-center justify-between text-left text-sm font-semibold text-slate-800 hover:text-[#1877f2]"
         >
           Silabus {course.silabus.length} modul
           <ChevronDown size={18} aria-hidden="true" className={`transition-transform ${terbuka ? 'rotate-180' : ''}`} />
@@ -284,25 +478,25 @@ function CourseCard({ course, terbuka, onToggle, onDaftar }: {
         {terbuka ? (
           <ul className="mt-3 space-y-2">
             {course.silabus.map((s) => (
-              <li key={s} className="flex gap-2 text-sm leading-relaxed text-slate-300">
-                <CheckCircle2 size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-emerald-400" />
+              <li key={s} className="flex gap-2 text-xs leading-relaxed text-slate-600">
+                <CheckCircle2 size={15} aria-hidden="true" className="mt-0.5 shrink-0 text-emerald-600" />
                 {s}
               </li>
             ))}
           </ul>
         ) : null}
       </div>
-      <div className="mt-5 flex items-end justify-between gap-3">
+      <div className="mt-5 flex items-end justify-between gap-3 border-t border-slate-100 pt-4">
         <div>
           {course.hargaCoret ? (
-            <p className="text-sm text-slate-500 line-through">{course.hargaCoret}</p>
+            <p className="text-xs text-slate-400 line-through">{course.hargaCoret}</p>
           ) : null}
-          <p className="font-display text-xl font-bold text-white">{course.harga}</p>
+          <p className="font-display text-xl font-extrabold text-slate-900">{course.harga}</p>
         </div>
         <button
           type="button"
           onClick={onDaftar}
-          className="rounded-lg bg-[#cca43b] px-4 py-2.5 text-sm font-semibold text-[#0b0f19] transition-colors hover:bg-[#d9b455]"
+          className="rounded-lg bg-[#1877f2] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#166fe5]"
         >
           Pilih kelas
         </button>
@@ -311,7 +505,13 @@ function CourseCard({ course, terbuka, onToggle, onDaftar }: {
   );
 }
 
-function Katalog({ filter, onFilter, courseTerbuka, onToggleCourse, onDaftar }: {
+function Katalog({
+  filter,
+  onFilter,
+  courseTerbuka,
+  onToggleCourse,
+  onDaftar,
+}: {
   filter: string;
   onFilter: (f: string) => void;
   courseTerbuka: string | null;
@@ -322,12 +522,11 @@ function Katalog({ filter, onFilter, courseTerbuka, onToggleCourse, onDaftar }: 
   const tampil = filter === 'Semua' ? courses : courses.filter((c) => c.kategori === filter);
 
   return (
-    <section id="kelas" className="scroll-mt-20 border-t border-white/10 bg-[#0d1e3d]/40">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="text-3xl font-bold text-white">6 kelas, dari nol sampai cloud</h2>
-        <p className="mt-3 max-w-2xl text-slate-300">
-          Ambil satu kelas sesuai kebutuhan, atau hemat dengan bootcamp 12 minggu yang mencakup semuanya.
+    <section id="kelas" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <h2 className="text-3xl font-bold text-slate-900">Program Profesional Data Engineering</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Ambil modul spesifik sesuai kebutuhan karier Anda, atau pilih bootcamp komprehensif untuk persiapan kerja penuh.
         </p>
         <div className="mt-6 flex flex-wrap gap-2" role="group" aria-label="Saring kelas berdasarkan kategori">
           {kategori.map((k) => (
@@ -338,15 +537,15 @@ function Katalog({ filter, onFilter, courseTerbuka, onToggleCourse, onDaftar }: 
               aria-pressed={filter === k}
               className={`rounded-full px-4 py-1.5 text-sm font-medium transition-colors ${
                 filter === k
-                  ? 'bg-[#cca43b] text-[#0b0f19]'
-                  : 'border border-white/15 text-slate-300 hover:border-white/35 hover:text-white'
+                  ? 'bg-[#1877f2] text-white shadow-xs'
+                  : 'border border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100 hover:text-slate-900'
               }`}
             >
               {k}
             </button>
           ))}
         </div>
-        <div className="mt-8 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {tampil.map((c) => (
             <CourseCard
               key={c.id}
@@ -367,42 +566,40 @@ function Katalog({ filter, onFilter, courseTerbuka, onToggleCourse, onDaftar }: 
 const ALUR = [
   {
     tahap: 'Tahap 1',
-    judul: 'Fondasi Python dan SQL',
-    isi: 'Empat minggu menguatkan dasar. Lulus tahap ini, Anda bisa membersihkan data kotor dan menulis query agregat tanpa mencontek.',
+    judul: 'Fondasi Python & SQL',
+    isi: 'Menguatkan dasar pemrograman data. Anda akan mahir membersihkan data kotor dan menulis query analitik yang teroptimasi.',
   },
   {
     tahap: 'Tahap 2',
-    judul: 'Pipeline ETL terjadwal',
-    isi: 'Bangun DAG Airflow yang menarik data tiap pagi, memvalidasinya, dan memuat ke warehouse. Ini project pertama portofolio Anda.',
+    judul: 'Pipeline ETL Terjadwal',
+    isi: 'Membangun DAG Airflow yang menarik data terjadwal, memvalidasi kualitas data, dan memuatnya ke warehouse.',
   },
   {
     tahap: 'Tahap 3',
-    judul: 'Skala besar dan cloud',
-    isi: 'Spark untuk data ratusan juta baris, dbt untuk modeling, lalu deploy semuanya di cloud dengan biaya terkontrol.',
+    judul: 'Skala Besar & Cloud',
+    isi: 'Memproses jutaan baris dengan Spark, pemodelan data dengan dbt, serta deployment cloud yang efisien.',
   },
   {
     tahap: 'Tahap 4',
-    judul: 'Siap kerja',
-    isi: 'Empat project lengkap, simulasi interview dengan mentor, dan CV yang menonjolkan bukti bukan klaim.',
+    judul: 'Siap Kerja & Produksi',
+    isi: 'Empat project lengkap di portofolio GitHub, simulasi interview teknis, dan pendampingan karier intensif.',
   },
 ];
 
 function Alur() {
   return (
-    <section id="alur" className="scroll-mt-20 border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="text-3xl font-bold text-white">Alur bootcamp 12 minggu</h2>
-        <p className="mt-3 max-w-2xl text-slate-300">
-          Urutannya dirancang supaya tiap tahap menghasilkan sesuatu yang jalan, bukan sekadar materi selesai.
+    <section id="alur" className="scroll-mt-20 border-b border-slate-200 bg-[#f0f2f5] py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <h2 className="text-3xl font-bold text-slate-900">Alur Belajar Terstruktur</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Urutan materi dirancang agar setiap tahapan menghasilkan pipeline nyata yang langsung bisa diuji coba.
         </p>
-        <ol className="mt-10 grid gap-8 md:grid-cols-4">
+        <ol className="mt-8 grid gap-6 md:grid-cols-4">
           {ALUR.map((a, i) => (
-            <li key={a.judul} className="relative border-t-2 border-[#0b4596] pt-5">
-              <p className="font-mono text-sm text-[#7fb3ff]">0{i + 1}</p>
-              <p className="mt-1 text-xs uppercase tracking-wide text-slate-500">{a.tahap}</p>
-              <h3 className="mt-2 font-display text-lg font-semibold text-white">{a.judul}</h3>
-              <p className="mt-2 text-[15px] leading-relaxed text-slate-300">{a.isi}</p>
+            <li key={a.judul} className="card-hover rounded-xl border border-slate-200 bg-white p-5 shadow-2xs">
+              <p className="font-mono text-xs font-bold text-[#1877f2]">TAHAP 0{i + 1}</p>
+              <h3 className="mt-2 font-display text-lg font-bold text-slate-900">{a.judul}</h3>
+              <p className="mt-2 text-xs leading-relaxed text-slate-600">{a.isi}</p>
             </li>
           ))}
         </ol>
@@ -414,44 +611,43 @@ function Alur() {
 /* ------------------------------ jadwal & harga ----------------------------- */
 
 function statusWarna(status: string) {
-  if (status === 'Hampir penuh') return 'bg-red-400/15 text-red-300';
-  if (status === 'Segera hadir') return 'bg-white/10 text-slate-300';
-  return 'bg-emerald-400/15 text-emerald-300';
+  if (status === 'Hampir penuh') return 'bg-amber-50 text-amber-800 border border-amber-200';
+  if (status === 'Segera hadir') return 'bg-slate-100 text-slate-700 border border-slate-200';
+  return 'bg-emerald-50 text-emerald-700 border border-emerald-200';
 }
 
 function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
   return (
-    <section id="jadwal" className="scroll-mt-20 border-t border-white/10 bg-[#0d1e3d]/40">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="text-3xl font-bold text-white">Jadwal batch terdekat</h2>
-        <p className="mt-3 max-w-2xl text-slate-300">
-          Kelas live pukul 19.00–21.30 WIB, dua kali seminggu. Semua sesi direkam dan bisa ditonton ulang kapan saja.
+    <section id="jadwal" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <h2 className="text-3xl font-bold text-slate-900">Jadwal Kelas Terdekat</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Kelas live malam hari via Zoom. Seluruh sesi direkam dan dapat diakses ulang kapan saja.
         </p>
-        <div className="mt-8 overflow-x-auto rounded-xl border border-white/10">
-          <table className="w-full min-w-[720px] text-left text-[15px] tabular-nums">
+        <div className="mt-8 overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+          <table className="w-full min-w-[720px] text-left text-sm">
             <thead>
-              <tr className="border-b border-white/10 bg-white/5 text-sm text-slate-300">
-                <th scope="col" className="px-5 py-3.5 font-semibold">Batch</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Mulai</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Format</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Kuota</th>
-                <th scope="col" className="px-5 py-3.5 font-semibold">Status</th>
+              <tr className="border-b border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 uppercase">
+                <th scope="col" className="px-5 py-3.5">Batch</th>
+                <th scope="col" className="px-5 py-3.5">Mulai</th>
+                <th scope="col" className="px-5 py-3.5">Format</th>
+                <th scope="col" className="px-5 py-3.5">Kuota</th>
+                <th scope="col" className="px-5 py-3.5">Status</th>
                 <th scope="col" className="px-5 py-3.5"><span className="sr-only">Aksi</span></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-slate-100 bg-white">
               {batches.map((b) => (
-                <tr key={b.id} className="border-b border-white/5 last:border-0 hover:bg-white/[0.03]">
+                <tr key={b.id} className="hover:bg-slate-50/80 transition-colors">
                   <td className="px-5 py-4">
-                    <p className="font-semibold text-white">{b.nama}</p>
-                    <p className="text-sm text-slate-400">{courseName(b.courseId)}</p>
+                    <p className="font-bold text-slate-900">{b.nama}</p>
+                    <p className="text-xs text-slate-500">{courseName(b.courseId)}</p>
                   </td>
-                  <td className="px-5 py-4 text-slate-200">{b.tanggal}</td>
-                  <td className="px-5 py-4 text-slate-200">{b.format}</td>
-                  <td className="px-5 py-4 text-slate-400">{b.kuota}</td>
+                  <td className="px-5 py-4 text-slate-700 font-medium">{b.tanggal}</td>
+                  <td className="px-5 py-4 text-slate-600">{b.format}</td>
+                  <td className="px-5 py-4 text-slate-600">{b.kuota}</td>
                   <td className="px-5 py-4">
-                    <span className={`inline-block rounded-full px-2.5 py-1 text-xs font-medium ${statusWarna(b.status)}`}>
+                    <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusWarna(b.status)}`}>
                       {b.status}
                     </span>
                   </td>
@@ -459,9 +655,9 @@ function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
                     <button
                       type="button"
                       onClick={() => onDaftar(b.courseId)}
-                      className="rounded-lg border border-[#cca43b]/50 px-3.5 py-1.5 text-sm font-semibold text-[#e3c86a] transition-colors hover:bg-[#cca43b] hover:text-[#0b0f19]"
+                      className="rounded-lg border border-[#1877f2] bg-white px-3.5 py-1.5 text-xs font-bold text-[#1877f2] transition-colors hover:bg-[#1877f2] hover:text-white"
                     >
-                      Amankan kursi
+                      Pilih Kursi
                     </button>
                   </td>
                 </tr>
@@ -469,9 +665,9 @@ function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
             </tbody>
           </table>
         </div>
-        <p className="mt-4 flex items-start gap-2 text-sm text-slate-400">
-          <CalendarDays size={16} aria-hidden="true" className="mt-0.5 shrink-0" />
-          Butuh jadwal khusus untuk tim kantor? Bagian corporate training di bawah bisa menyesuaikan hari dan jam.
+        <p className="mt-4 flex items-start gap-2 text-xs text-slate-500">
+          <CalendarDays size={16} aria-hidden="true" className="mt-0.5 shrink-0 text-slate-400" />
+          Butuh jadwal khusus untuk tim kantor atau komunitas bisnis? Hubungi kami untuk penyesuaian jadwal in-house.
         </p>
       </div>
     </section>
@@ -482,40 +678,43 @@ function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
 
 function Corporate() {
   return (
-    <section className="border-t border-white/10 bg-[#0b4596]">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[1fr_0.9fr] lg:items-center">
+    <section className="border-b border-slate-200 bg-[#0b4596] text-white py-16">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[1fr_0.9fr] lg:items-center">
         <div>
-          <h2 className="text-3xl font-bold text-white">Training in-house untuk tim data kantor Anda</h2>
-          <p className="mt-3 leading-relaxed text-blue-100">
-            Sudah dipercaya 25+ perusahaan dan instansi. Kurikulumnya kami sesuaikan dengan stack yang dipakai tim,
-            studinya kasusnya pakai data sejenis milik Anda.
+          <span className="inline-block rounded-full bg-white/15 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-blue-100">
+            Corporate & In-House
+          </span>
+          <h2 className="mt-3 text-3xl font-bold text-white">Pelatihan Khusus Tim Kantor & Perusahaan</h2>
+          <p className="mt-3 text-sm leading-relaxed text-blue-100">
+            Materi dan studi kasus kami rancang langsung sesuai data stack yang digunakan di kantor Anda (GCP, AWS, PostgreSQL, atau on-premise).
           </p>
-          <ul className="mt-6 space-y-3">
+          <ul className="mt-6 space-y-2.5 text-sm text-blue-50">
             {[
-              'Peserta 10–50 orang, online atau datang ke kantor Anda',
-              'Pre-test dan post-test untuk mengukur hasil ke HR',
-              'Materi dan studi kasus disesuaikan dengan GCP, AWS, atau on-premise',
+              'Kapasitas 10–50 peserta, online via Zoom atau in-house di kantor Anda',
+              'Pre-test dan post-test resmi untuk mengukur peningkatan tim',
+              'Studi kasus privat disesuaikan dengan data riil perusahaan',
             ].map((item) => (
-              <li key={item} className="flex gap-3 text-blue-50">
-                <CheckCircle2 size={19} aria-hidden="true" className="mt-0.5 shrink-0 text-[#e3c86a]" />
+              <li key={item} className="flex gap-3">
+                <CheckCircle2 size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-amber-300" />
                 {item}
               </li>
             ))}
           </ul>
         </div>
-        <div className="rounded-xl bg-[#0b0f19]/60 p-7 backdrop-blur">
-          <p className="flex items-center gap-2 text-sm text-slate-300">
-            <Database size={16} aria-hidden="true" /> Contoh klien corporate
+        <div className="rounded-2xl border border-white/20 bg-white/10 p-7 backdrop-blur">
+          <p className="text-xs font-semibold uppercase tracking-wider text-blue-200">Testimoni Klien Corporate</p>
+          <p className="mt-3 font-display text-xl font-bold leading-snug text-white">
+            “Skor post-test tim meningkat 41%. Pipeline ETL yang kami susun saat sesi pelatihan langsung masuk ke staging produksi.”
           </p>
-          <p className="mt-3 font-display text-2xl font-semibold leading-snug text-white">
-            “Pre/post test tim naik 41%. Pipeline yang dibangun saat training langsung dipakai di produksi.”
-          </p>
-          <p className="mt-3 text-sm text-slate-400">Head of Data, perusahaan logistik nasional — 25 engineer, 6 hari</p>
+          <p className="mt-3 text-xs text-blue-200">Head of Data, Perusahaan Logistik Nasional (Batch 25 Engineer)</p>
           <a
-            href="#daftar"
-            className="mt-6 inline-block rounded-lg bg-[#cca43b] px-6 py-3 font-semibold text-[#0b0f19] transition-colors hover:bg-[#d9b455]"
+            href={waLink('Halo Admin DSI Academy, saya ingin berdiskusi mengenai penawaran training corporate untuk perusahaan kami.')}
+            target="_blank"
+            rel="noreferrer"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-white px-5 py-2.5 text-sm font-bold text-[#0b4596] shadow-sm transition-colors hover:bg-blue-50"
           >
-            Minta proposal corporate
+            <MessageCircle size={17} aria-hidden="true" />
+            Minta Proposal Corporate via WA
           </a>
         </div>
       </div>
@@ -527,19 +726,23 @@ function Corporate() {
 
 function Instruktur() {
   return (
-    <section id="instruktur" className="scroll-mt-20 border-t border-white/10">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="text-3xl font-bold text-white">Diajar orang yang kerjaannya memang ini</h2>
-        <div className="mt-8 grid gap-5 md:grid-cols-3">
+    <section id="instruktur" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <h2 className="text-3xl font-bold text-slate-900">Didampingi Mentor Praktisi</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Pengajar kami adalah praktisi data dan software engineer aktif yang sehari-hari berkutat dengan sistem skala riil.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {instructors.map((ins) => (
-            <div key={ins.nama} className="glass rounded-xl p-6">
-              <p className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0b4596] font-display font-bold text-[#e3c86a]">
+            <div key={ins.nama} className="card-hover rounded-xl border border-slate-200 bg-slate-50/60 p-6 shadow-2xs">
+              <p className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0b4596] font-display font-bold text-white shadow-xs">
                 {ins.inisial}
               </p>
-              <h3 className="mt-4 font-display text-lg font-semibold text-white">{ins.nama}</h3>
-              <p className="mt-1 text-sm text-slate-300">{ins.peran}</p>
-              <p className="mt-2 font-mono text-xs text-slate-500">{ins.keahlian}</p>
+              <h3 className="mt-4 font-display text-lg font-bold text-slate-900">{ins.nama}</h3>
+              <p className="mt-1 text-xs font-semibold text-[#1877f2]">{ins.peran}</p>
+              <p className="mt-2 text-xs text-slate-600 font-mono bg-white p-2 rounded border border-slate-200">
+                {ins.keahlian}
+              </p>
             </div>
           ))}
         </div>
@@ -550,19 +753,21 @@ function Instruktur() {
 
 function Testimoni() {
   return (
-    <section className="border-t border-white/10 bg-[#0d1e3d]/40">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="text-3xl font-bold text-white">Kata mereka yang sudah lulus</h2>
-        <div className="mt-8 space-y-8">
+    <section className="border-b border-slate-200 bg-[#f0f2f5] py-16">
+      <div className="mx-auto max-w-6xl px-5">
+        <h2 className="text-3xl font-bold text-slate-900">Pengalaman Para Alumni</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Ulasan jujur dari peserta yang telah mempraktikkan materi di tempat kerja masing-masing.
+        </p>
+        <div className="mt-8 grid gap-6 md:grid-cols-3">
           {testimonials.map((t) => (
-            <figure key={t.nama} className="border-l-2 border-[#cca43b] pl-6">
-              <blockquote className="max-w-3xl text-lg leading-relaxed text-slate-100">“{t.teks}”</blockquote>
-              <figcaption className="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm">
-                <span className="font-semibold text-white">{t.nama}</span>
-                <span className="flex items-center gap-1 text-slate-400">
-                  <Star size={13} aria-hidden="true" className="text-[#cca43b]" /> {t.kelas}
-                </span>
+            <figure key={t.nama} className="card-hover flex flex-col justify-between rounded-xl border border-slate-200 bg-white p-6 shadow-2xs">
+              <blockquote className="text-sm leading-relaxed text-slate-700">“{t.teks}”</blockquote>
+              <figcaption className="mt-5 border-t border-slate-100 pt-4">
+                <p className="font-bold text-sm text-slate-900">{t.nama}</p>
+                <p className="mt-1 flex items-center gap-1 text-xs text-slate-500">
+                  <Star size={13} aria-hidden="true" className="fill-amber-400 text-amber-400" /> {t.kelas}
+                </p>
               </figcaption>
             </figure>
           ))}
@@ -576,11 +781,13 @@ function Testimoni() {
 
 function Faq({ terbuka, onToggle }: { terbuka: number | null; onToggle: (i: number) => void }) {
   return (
-    <section id="faq" className="scroll-mt-20 border-t border-white/10">
-      <div className="mx-auto max-w-4xl px-5 py-16">
-        <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-        <h2 className="text-3xl font-bold text-white">Pertanyaan yang sering masuk</h2>
-        <div className="mt-8 divide-y divide-white/10 rounded-xl border border-white/10">
+    <section id="faq" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
+      <div className="mx-auto max-w-4xl px-5">
+        <h2 className="text-3xl font-bold text-slate-900">Pertanyaan yang Sering Diajukan</h2>
+        <p className="mt-2 max-w-2xl text-slate-600">
+          Semua hal yang perlu Anda ketahui mengenai mekanisme belajar dan pendaftaran.
+        </p>
+        <div className="mt-8 divide-y divide-slate-200 rounded-xl border border-slate-200 bg-white shadow-2xs">
           {faqs.map((f, i) => {
             const buka = terbuka === i;
             return (
@@ -589,12 +796,12 @@ function Faq({ terbuka, onToggle }: { terbuka: number | null; onToggle: (i: numb
                   type="button"
                   onClick={() => onToggle(i)}
                   aria-expanded={buka}
-                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left font-semibold text-white hover:bg-white/[0.03]"
+                  className="flex w-full items-center justify-between gap-4 px-6 py-4.5 text-left font-semibold text-slate-900 hover:bg-slate-50 transition-colors"
                 >
-                  {f.q}
-                  <ChevronDown size={19} aria-hidden="true" className={`shrink-0 text-slate-400 transition-transform ${buka ? 'rotate-180' : ''}`} />
+                  <span className="text-sm md:text-base">{f.q}</span>
+                  <ChevronDown size={18} aria-hidden="true" className={`shrink-0 text-slate-400 transition-transform ${buka ? 'rotate-180' : ''}`} />
                 </button>
-                {buka ? <p className="px-6 pb-6 leading-relaxed text-slate-300">{f.a}</p> : null}
+                {buka ? <p className="px-6 pb-5 text-sm leading-relaxed text-slate-600">{f.a}</p> : null}
               </div>
             );
           })}
@@ -673,37 +880,38 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
     : '';
 
   const inputKelas =
-    'w-full rounded-lg border border-white/15 bg-white/5 px-4 py-2.5 text-[15px] text-white placeholder:text-slate-500 focus:border-[#cca43b] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#cca43b]';
+    'w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20 focus-visible:outline-none';
 
   return (
-    <section id="daftar" className="scroll-mt-20 border-t border-white/10 bg-[#0d1e3d]/40">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-16 lg:grid-cols-[0.9fr_1.1fr]">
+    <section id="daftar" className="scroll-mt-20 border-b border-slate-200 bg-[#f0f2f5] py-16">
+      <div className="mx-auto grid max-w-6xl gap-10 px-5 lg:grid-cols-[0.9fr_1.1fr]">
         <div>
-          <div className="gold-rule mb-6 w-16" aria-hidden="true" />
-          <h2 className="text-3xl font-bold text-white">Daftar, kami hubungi maks. 1x24 jam</h2>
-          <p className="mt-3 leading-relaxed text-slate-300">
-            Isi form di samping. Data Anda langsung tersusun jadi pesan WhatsApp, tinggal tekan kirim.
-            Tanpa telepon marketing, tanpa spam.
+          <span className="inline-block text-xs font-bold uppercase tracking-wider text-[#1877f2] mb-2">
+            Pendaftaran & Konsultasi
+          </span>
+          <h2 className="text-3xl font-bold text-slate-900">Mulai Belajar Bersama Kami</h2>
+          <p className="mt-3 leading-relaxed text-sm text-slate-600">
+            Silakan lengkapi formulir pendaftaran. Data Anda akan disusun menjadi format WhatsApp otomatis dan langsung terhubung dengan admin resmi kami (0813-1909-5252).
           </p>
-          <ul className="mt-6 space-y-3 text-[15px] text-slate-200">
+          <ul className="mt-6 space-y-3 text-sm text-slate-700">
             <li className="flex gap-3">
-              <GraduationCap size={19} aria-hidden="true" className="mt-0.5 shrink-0 text-[#e3c86a]" />
-              Konsultasi pemilihan kelas gratis sebelum bayar
+              <GraduationCap size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-[#1877f2]" />
+              Konsultasi pemilihan kurikulum gratis sebelum pembayaran
             </li>
             <li className="flex gap-3">
-              <MapPin size={19} aria-hidden="true" className="mt-0.5 shrink-0 text-[#e3c86a]" />
-              Online dari mana saja, offline tersedia di Jakarta
+              <MapPin size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-[#1877f2]" />
+              Format online via Zoom interaktif dari seluruh Indonesia
             </li>
             <li className="flex gap-3">
-              <MessageCircle size={19} aria-hidden="true" className="mt-0.5 shrink-0 text-[#e3c86a]" />
-              Grup diskusi tiap batch, aktif bahkan setelah lulus
+              <MessageCircle size={18} aria-hidden="true" className="mt-0.5 shrink-0 text-[#1877f2]" />
+              Grup diskusi suportif yang tetap aktif setelah kelas usai
             </li>
           </ul>
         </div>
-        <form onSubmit={kirim} noValidate className="glass rounded-xl p-6 md:p-8">
-          <div className="grid gap-5 sm:grid-cols-2">
+        <form onSubmit={kirim} noValidate className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+          <div className="grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="f-nama" className="mb-1.5 block text-sm font-medium text-slate-200">
+              <label htmlFor="f-nama" className="mb-1 block text-xs font-semibold text-slate-700">
                 Nama lengkap
               </label>
               <input
@@ -711,7 +919,7 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
                 name="nama"
                 type="text"
                 autoComplete="name"
-                placeholder="cth. Putri Ayu…"
+                placeholder="cth. Hendra Wijaya…"
                 value={form.nama}
                 onChange={(ev) => isi('nama', ev.target.value)}
                 className={inputKelas}
@@ -719,13 +927,13 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
                 aria-describedby={error.nama ? 'f-nama-err' : undefined}
               />
               {error.nama ? (
-                <p id="f-nama-err" aria-live="polite" className="mt-1.5 text-sm text-red-300">
+                <p id="f-nama-err" aria-live="polite" className="mt-1 text-xs text-red-600">
                   {error.nama}
                 </p>
               ) : null}
             </div>
             <div>
-              <label htmlFor="f-wa" className="mb-1.5 block text-sm font-medium text-slate-200">
+              <label htmlFor="f-wa" className="mb-1 block text-xs font-semibold text-slate-700">
                 Nomor WhatsApp
               </label>
               <input
@@ -741,14 +949,14 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
                 aria-describedby={error.wa ? 'f-wa-err' : undefined}
               />
               {error.wa ? (
-                <p id="f-wa-err" aria-live="polite" className="mt-1.5 text-sm text-red-300">
+                <p id="f-wa-err" aria-live="polite" className="mt-1 text-xs text-red-600">
                   {error.wa}
                 </p>
               ) : null}
             </div>
           </div>
-          <div className="mt-5">
-            <label htmlFor="f-email" className="mb-1.5 block text-sm font-medium text-slate-200">
+          <div className="mt-4">
+            <label htmlFor="f-email" className="mb-1 block text-xs font-semibold text-slate-700">
               Email <span className="font-normal text-slate-500">(opsional)</span>
             </label>
             <input
@@ -757,7 +965,7 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
               type="email"
               autoComplete="email"
               spellCheck={false}
-              placeholder="cth. putri@email.com…"
+              placeholder="cth. hendra@email.com…"
               value={form.email}
               onChange={(ev) => isi('email', ev.target.value)}
               className={inputKelas}
@@ -765,42 +973,41 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
               aria-describedby={error.email ? 'f-email-err' : undefined}
             />
             {error.email ? (
-              <p id="f-email-err" aria-live="polite" className="mt-1.5 text-sm text-red-300">
+              <p id="f-email-err" aria-live="polite" className="mt-1 text-xs text-red-600">
                 {error.email}
               </p>
             ) : null}
           </div>
-          <div className="mt-5 grid gap-5 sm:grid-cols-2">
+          <div className="mt-4 grid gap-4 sm:grid-cols-2">
             <div>
-              <label htmlFor="f-kelas" className="mb-1.5 block text-sm font-medium text-slate-200">
-                Kelas yang diminati
+              <label htmlFor="f-kelas" className="mb-1 block text-xs font-semibold text-slate-700">
+                Program yang diminati
               </label>
               <select
                 id="f-kelas"
                 name="kelas"
                 value={kelasAktif}
                 onChange={(ev) => isi('kelas', ev.target.value)}
-                className={`${inputKelas} ${kelasDipilih !== '' ? 'border-[#cca43b]/60' : ''}`}
+                className={inputKelas}
                 aria-invalid={Boolean(error.kelas)}
                 aria-describedby={error.kelas ? 'f-kelas-err' : undefined}
               >
-                <option value="" className="bg-[#0b0f19]">
-                  Pilih kelas
-                </option>
+                <option value="">Pilih program</option>
+                <option value="umkm-batch">Pelatihan UMKM: Kasir, Inventory & AI — Rp 350.000</option>
                 {courses.map((c) => (
-                  <option key={c.id} value={c.id} className="bg-[#0b0f19]">
+                  <option key={c.id} value={c.id}>
                     {c.judul} — {c.harga}
                   </option>
                 ))}
               </select>
               {error.kelas ? (
-                <p id="f-kelas-err" aria-live="polite" className="mt-1.5 text-sm text-red-300">
+                <p id="f-kelas-err" aria-live="polite" className="mt-1 text-xs text-red-600">
                   {error.kelas}
                 </p>
               ) : null}
             </div>
             <div>
-              <label htmlFor="f-batch" className="mb-1.5 block text-sm font-medium text-slate-200">
+              <label htmlFor="f-batch" className="mb-1 block text-xs font-semibold text-slate-700">
                 Batch
               </label>
               <select
@@ -810,30 +1017,29 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
                 onChange={(ev) => isi('batch', ev.target.value)}
                 className={inputKelas}
               >
-                <option value="" className="bg-[#0b0f19]">
-                  Minta rekomendasi admin
-                </option>
+                <option value="">Minta rekomendasi admin</option>
+                <option value="Batch UMKM Oktober 2026">Batch UMKM (3 - 10 Oktober 2026)</option>
                 {batchTersedia.map((b) => (
-                  <option key={b.id} value={b.nama} className="bg-[#0b0f19]">
+                  <option key={b.id} value={b.nama}>
                     {b.nama} — {b.tanggal}
                   </option>
                 ))}
               </select>
             </div>
           </div>
-          <fieldset className="mt-5">
-            <legend className="mb-1.5 text-sm font-medium text-slate-200">Ikut sebagai</legend>
+          <fieldset className="mt-4">
+            <legend className="mb-1.5 text-xs font-semibold text-slate-700">Kebutuhan</legend>
             <div className="flex gap-2">
-              {['Individu', 'Corporate / tim'].map((k) => (
+              {['Individu / UMKM', 'Corporate / Tim'].map((k) => (
                 <button
                   key={k}
                   type="button"
                   onClick={() => isi('kebutuhan', k)}
                   aria-pressed={form.kebutuhan === k}
-                  className={`rounded-lg px-4 py-2 text-sm font-medium transition-colors ${
+                  className={`rounded-lg px-3.5 py-1.5 text-xs font-medium transition-colors ${
                     form.kebutuhan === k
-                      ? 'bg-[#cca43b] text-[#0b0f19]'
-                      : 'border border-white/15 text-slate-300 hover:border-white/35'
+                      ? 'bg-[#1877f2] text-white font-semibold'
+                      : 'border border-slate-300 bg-white text-slate-700 hover:bg-slate-50'
                   }`}
                 >
                   {k}
@@ -841,43 +1047,43 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
               ))}
             </div>
           </fieldset>
-          <div className="mt-5">
-            <label htmlFor="f-pesan" className="mb-1.5 block text-sm font-medium text-slate-200">
+          <div className="mt-4">
+            <label htmlFor="f-pesan" className="mb-1 block text-xs font-semibold text-slate-700">
               Catatan <span className="font-normal text-slate-500">(opsional)</span>
             </label>
             <textarea
               id="f-pesan"
               name="pesan"
               rows={3}
-              placeholder="cth. background saya akuntansi, cocok mulai dari mana?…"
+              placeholder="cth. apakah ada rekaman jika bentrok jam kantor?…"
               value={form.pesan}
               onChange={(ev) => isi('pesan', ev.target.value)}
               className={`${inputKelas} resize-none`}
             />
           </div>
           {terkirim ? (
-            <div className="mt-6 rounded-lg border border-emerald-400/30 bg-emerald-400/10 p-4">
-              <p className="flex items-center gap-2 font-semibold text-emerald-200">
-                <Send size={17} aria-hidden="true" /> Pesan Anda sudah tersusun rapi.
+            <div className="mt-5 rounded-xl border border-emerald-200 bg-emerald-50 p-4">
+              <p className="flex items-center gap-2 font-bold text-sm text-emerald-800">
+                <Send size={16} aria-hidden="true" /> Pesan Anda telah tersusun rapi.
               </p>
-              <p className="mt-1 text-sm text-emerald-100/80">
-                Tekan tombol di bawah untuk mengirimnya via WhatsApp ke admin academy.
+              <p className="mt-1 text-xs text-emerald-700">
+                Klik tombol di bawah ini untuk mengirimkannya langsung via WhatsApp ke admin academy.
               </p>
               <a
                 href={pesanWA}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-4 inline-flex items-center gap-2 rounded-lg bg-emerald-500 px-5 py-2.5 font-semibold text-[#0b0f19] transition-colors hover:bg-emerald-400"
+                className="mt-3 inline-flex items-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-xs font-bold text-white shadow-xs transition-colors hover:bg-emerald-700"
               >
-                <MessageCircle size={18} aria-hidden="true" /> Kirim via WhatsApp
+                <MessageCircle size={16} aria-hidden="true" /> Buka WhatsApp & Kirim
               </a>
             </div>
           ) : (
             <button
               type="submit"
-              className="mt-6 w-full rounded-lg bg-[#cca43b] py-3 font-semibold text-[#0b0f19] transition-colors hover:bg-[#d9b455]"
+              className="mt-5 w-full rounded-xl bg-[#1877f2] py-2.5 text-sm font-bold text-white shadow-xs transition-colors hover:bg-[#166fe5]"
             >
-              Susun pesan pendaftaran
+              Lanjutkan ke WhatsApp Admin
             </button>
           )}
         </form>
@@ -890,48 +1096,52 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
 
 function Footer() {
   return (
-    <footer className="border-t border-white/10">
-      <div className="mx-auto grid max-w-6xl gap-10 px-5 py-12 md:grid-cols-3">
+    <footer className="border-t border-slate-200 bg-white text-slate-600">
+      <div className="mx-auto grid max-w-6xl gap-8 px-5 py-12 md:grid-cols-3">
         <div>
           <p className="flex items-center gap-3">
-            <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#0b4596] font-display text-sm font-bold text-[#cca43b]">
-              DS
-            </span>
-            <span className="font-display font-semibold text-white">Integra Academy</span>
+            <img
+              src="/dsi-logo.webp"
+              alt="Logo PT Daya Solusi Integra"
+              className="h-10 w-auto object-contain"
+              width="120"
+              height="40"
+            />
+            <span className="border-l border-slate-300 pl-2.5 font-display font-bold text-slate-900">Integra Academy</span>
           </p>
-          <p className="mt-3 max-w-xs text-sm leading-relaxed text-slate-400">
-            Divisi training Daya Solusi Integra. Fokus satu hal: mencetak data engineer yang siap production.
+          <p className="mt-3 max-w-xs text-xs leading-relaxed text-slate-500">
+            Divisi pelatihan Daya Solusi Integra. Berfokus menghadirkan teknologi praktis, data engineering, dan digitalisasi bisnis yang langsung bisa diterapkan.
           </p>
         </div>
         <nav aria-label="Tautan footer">
-          <p className="text-sm font-semibold text-white">Jelajahi</p>
-          <ul className="mt-3 space-y-2 text-sm text-slate-400">
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Jelajahi</p>
+          <ul className="mt-3 space-y-2 text-xs text-slate-600">
             {NAV.map((n) => (
               <li key={n.href}>
-                <a href={n.href} className="hover:text-white">
+                <a href={n.href} className="hover:text-[#1877f2] transition-colors">
                   {n.label}
                 </a>
               </li>
             ))}
             <li>
-              <a href="#daftar" className="hover:text-white">
-                Pendaftaran
+              <a href="#daftar" className="hover:text-[#1877f2] transition-colors">
+                Pendaftaran & Konsultasi
               </a>
             </li>
           </ul>
         </nav>
         <div>
-          <p className="text-sm font-semibold text-white">Hubungi kami</p>
-          <ul className="mt-3 space-y-2 text-sm text-slate-400">
-            <li>WhatsApp: 0812-3456-7890 (admin academy)</li>
+          <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Kontak Resmi</p>
+          <ul className="mt-3 space-y-2 text-xs text-slate-600">
+            <li>WhatsApp: 0813-1909-5252 (Admin Academy)</li>
             <li>Email: academy@dsintegra.co.id</li>
-            <li>Jakarta, Indonesia — online ke seluruh Indonesia</li>
+            <li>Jakarta, Indonesia — Layanan Online ke Seluruh Indonesia</li>
           </ul>
         </div>
       </div>
-      <p className="border-t border-white/10 py-5 text-center text-xs text-slate-500">
-        © 2026 Daya Solusi Integra. Seluruh harga sudah termasuk PPN dan materi.
-      </p>
+      <div className="border-t border-slate-100 py-4 text-center text-xs text-slate-400">
+        © 2026 Daya Solusi Integra. Seluruh biaya sudah termasuk modul & pendampingan.
+      </div>
     </footer>
   );
 }
@@ -951,13 +1161,17 @@ export default function App() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100">
+    <div className="min-h-screen bg-[#f0f2f5] text-slate-800">
       <Header />
-      <a href="#konten" className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[#cca43b] focus:px-4 focus:py-2 focus:font-semibold focus:text-[#0b0f19]">
+      <a
+        href="#konten"
+        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[#1877f2] focus:px-4 focus:py-2 focus:font-semibold focus:text-white"
+      >
         Lewati ke konten utama
       </a>
       <main id="konten">
         <Hero />
+        <PosterShowcase />
         <Keunggulan />
         <Katalog
           filter={filter}
@@ -976,11 +1190,11 @@ export default function App() {
       </main>
       <Footer />
       <a
-        href={waLink('Halo Integra Academy, saya mau tanya-tanya dulu soal kelas Data Engineering.')}
+        href={waLink('Halo Integra Academy, saya mau tanya-tanya informasi seputar kelas dan pelatihan.')}
         target="_blank"
         rel="noreferrer"
         aria-label="Chat WhatsApp dengan admin academy"
-        className="fixed bottom-5 right-5 flex h-13 w-13 items-center justify-center rounded-full bg-emerald-500 p-3.5 text-[#0b0f19] shadow-xl transition-transform hover:scale-105"
+        className="fixed bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#1877f2] p-3 text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#166fe5]"
       >
         <MessageCircle size={24} aria-hidden="true" />
       </a>

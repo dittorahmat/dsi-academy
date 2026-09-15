@@ -1,4 +1,95 @@
-export const WA_NUMBER = "6281234567890"; // TODO: ganti dengan nomor WA admin academy
+export const WA_NUMBER = "6281319095252";
+
+export interface UmkmSchedule {
+  hari: string;
+  tanggal: string;
+  jam: string;
+  catatan?: string;
+}
+
+export interface UmkmAppBonus {
+  nama: string;
+  keterangan: string;
+  fitur: string[];
+}
+
+export interface UmkmTrainingData {
+  judul: string;
+  tagline: string;
+  harga: string;
+  hargaCoret: string;
+  durasi: string;
+  format: string;
+  targetPeserta: string[];
+  materiPilar: string[];
+  bonusAplikasi: UmkmAppBonus[];
+  jadwal: UmkmSchedule[];
+  waMessage: string;
+}
+
+export const umkmTraining: UmkmTrainingData = {
+  judul: "Pelatihan Praktis Coding with AI: Bangun Aplikasi Kasir, Stok & Akuntansi",
+  tagline: "Untuk Fresh Graduate IT, Pengalaman IT yang Ingin Explore AI, Pelaku UMKM & Umum",
+  harga: "Rp 350.000",
+  hargaCoret: "Rp 1.000.000",
+  durasi: "4 Hari Intensif (Online via Google Meet)",
+  format: "100% Online Hands-on Project + Dukungan AI Tools",
+  targetPeserta: [
+    "Fresh Graduate IT & Mahasiswa Teknik",
+    "Pengalaman IT yang ingin explore AI & modern tools",
+    "Pelaku UMKM, pemilik bisnis, & umum",
+  ],
+  materiPilar: [
+    "Coding with AI: Memanfaatkan AI tools untuk produktivitas koding & kreativitas",
+    "Pengenalan Data Analyst & Data Engineering: Memahami teknologi data & pipeline",
+    "Pengenalan Project Management: Dasar-dasar manajemen proyek untuk karier & bisnis",
+    "Hands-on Project: Langsung praktik membuat aplikasi bisnis siap pakai",
+  ],
+  bonusAplikasi: [
+    {
+      nama: "POS (Kasir)",
+      keterangan: "Aplikasi Kasir Sederhana",
+      fitur: ["Transaksi penjualan cepat", "Cetak struk / nota", "Laporan penjualan harian"],
+    },
+    {
+      nama: "Inventory (Stok)",
+      keterangan: "Pengelolaan Stok Barang",
+      fitur: ["Master produk", "Pencatatan stok masuk & keluar", "Peringatan stok minimum"],
+    },
+    {
+      nama: "Akuntansi (Keuangan)",
+      keterangan: "Pencatatan Keuangan Praktis",
+      fitur: ["Pemasukan & pengeluaran", "Arus kas sederhana", "Laporan laba rugi instan"],
+    },
+  ],
+  jadwal: [
+    {
+      hari: "Hari 1 (Jumat)",
+      tanggal: "3 Oktober 2026",
+      jam: "08.30 – 14.00 WIB",
+      catatan: "Ada 2x break istirahat",
+    },
+    {
+      hari: "Hari 2 (Senin)",
+      tanggal: "6 Oktober 2026",
+      jam: "20.00 – 22.00 WIB",
+      catatan: "Sesi malam santai",
+    },
+    {
+      hari: "Hari 3 (Rabu)",
+      tanggal: "8 Oktober 2026",
+      jam: "20.00 – 22.00 WIB",
+      catatan: "Sesi malam santai",
+    },
+    {
+      hari: "Hari 4 (Jumat)",
+      tanggal: "10 Oktober 2026",
+      jam: "10.00 – 12.00 WIB",
+      catatan: "Demo & kelulusan",
+    },
+  ],
+  waMessage: "Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Batch 3-10 Oktober) seharga Rp 350.000.",
+};
 
 export interface Course {
   id: string;
