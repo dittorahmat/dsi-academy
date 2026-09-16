@@ -146,11 +146,11 @@ function HeroPosterShowcase() {
           {/* Kolom Kiri: Tampilan Poster */}
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="group relative w-full max-w-[440px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
-              <a href="/Ads_TrainingIT_ver2.webp" target="_blank" rel="noreferrer" className="block relative aspect-square">
+              <a href="/Ads_TrainingIT_ver3.webp" target="_blank" rel="noreferrer" className="block relative aspect-square">
                 <picture>
-                  <source srcSet="/Ads_TrainingIT_ver2.webp" type="image/webp" />
+                  <source srcSet="/Ads_TrainingIT_ver3.webp" type="image/webp" />
                   <img
-                    src="/Ads_TrainingIT_ver2.png"
+                    src="/Ads_TrainingIT_ver3.png"
                     alt="Poster Resmi Pelatihan Praktis Coding with AI (Versi Terbaru)"
                     className="w-full h-full rounded-xl object-contain transition-transform duration-300 group-hover:scale-[1.01]"
                     loading="eager"
