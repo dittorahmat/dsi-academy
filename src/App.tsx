@@ -76,7 +76,7 @@ function Header() {
             href={LYNK_ID_REGISTRATION_URL}
             target="_blank"
             rel="noreferrer"
-            className="hidden rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3.5 py-2 text-xs font-semibold text-[#1877f2] transition-colors hover:bg-[#dbeafe] sm:inline-block"
+            className="hidden rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3.5 py-2 text-xs font-semibold text-[#135cb8] transition-colors hover:bg-[#dbeafe] sm:inline-block"
           >
             Coding with AI Rp 350rb
           </a>
@@ -92,6 +92,7 @@ function Header() {
             type="button"
             className="rounded-lg p-2 text-slate-700 hover:bg-slate-100 md:hidden"
             aria-expanded={open}
+            aria-controls="mobile-nav"
             aria-label={open ? 'Tutup menu' : 'Buka menu'}
             onClick={() => setOpen((v) => !v)}
           >
@@ -100,7 +101,7 @@ function Header() {
         </div>
       </div>
       {open ? (
-        <nav className="border-t border-slate-200 bg-white px-5 py-3 shadow-lg md:hidden" aria-label="Navigasi seluler">
+        <nav id="mobile-nav" className="border-t border-slate-200 bg-white px-5 py-3 shadow-lg md:hidden" aria-label="Navigasi seluler">
           {NAV.map((n) => (
             <a
               key={n.href}
@@ -116,7 +117,7 @@ function Header() {
             target="_blank"
             rel="noreferrer"
             onClick={() => setOpen(false)}
-            className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#1877f2]"
+            className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#135cb8]"
           >
             Pelatihan Coding with AI — Rp 350.000
           </a>
@@ -229,7 +230,7 @@ function HeroPosterShowcase() {
                         <span className="block text-[11px] text-slate-500">{j.tanggal}</span>
                       </div>
                       <div className="text-right">
-                        <span className="font-mono font-bold text-[#1877f2]">{j.jam}</span>
+                        <span className="font-mono font-bold tabular-nums text-[#1877f2]">{j.jam}</span>
                         {j.catatan ? <span className="block text-[10px] text-slate-500">{j.catatan}</span> : null}
                       </div>
                     </div>
@@ -244,8 +245,8 @@ function HeroPosterShowcase() {
                 <div>
                   <p className="text-xs font-medium text-slate-500">Investasi Pelatihan (Promo Batch Oktober):</p>
                   <div className="flex items-baseline gap-2">
-                    <span className="text-sm text-slate-400 line-through">{umkmTraining.hargaCoret}</span>
-                    <span className="font-display text-3xl font-extrabold text-[#1877f2]">{umkmTraining.harga}</span>
+                    <span className="text-sm text-slate-400 line-through tabular-nums">{umkmTraining.hargaCoret}</span>
+                    <span className="font-display text-3xl font-extrabold tabular-nums text-[#1877f2]">{umkmTraining.harga}</span>
                     <span className="text-xs font-semibold text-slate-600">/ peserta (4 sesi lengkap)</span>
                   </div>
                 </div>
@@ -533,16 +534,17 @@ function CourseCard({
       <div className="mt-5 flex items-end justify-between gap-3 border-t border-slate-100 pt-4">
         <div>
           {course.hargaCoret ? (
-            <p className="text-xs text-slate-400 line-through">{course.hargaCoret}</p>
+            <p className="text-xs text-slate-400 line-through tabular-nums">{course.hargaCoret}</p>
           ) : null}
-          <p className="font-display text-xl font-extrabold text-slate-900">{course.harga}</p>
+          <p className="font-display text-xl font-extrabold tabular-nums text-slate-900">{course.harga}</p>
         </div>
         <button
           type="button"
           onClick={onDaftar}
+          aria-label={`Daftar kelas ${course.judul}`}
           className="rounded-lg bg-[#1877f2] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#166fe5]"
         >
-          Pilih kelas
+          Daftar kelas
         </button>
       </div>
     </article>
@@ -668,7 +670,12 @@ function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
         <p className="mt-2 max-w-2xl text-slate-600">
           Kelas live malam hari via Zoom. Seluruh sesi direkam dan dapat diakses ulang kapan saja.
         </p>
-        <div className="mt-8 overflow-x-auto rounded-xl border border-slate-200 shadow-2xs">
+        <div
+          tabIndex={0}
+          role="region"
+          aria-label="Tabel Jadwal Kelas Terdekat"
+          className="mt-8 overflow-x-auto rounded-xl border border-slate-200 shadow-2xs focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1877f2]"
+        >
           <table className="w-full min-w-[720px] text-left text-sm">
             <thead>
               <tr className="border-b border-slate-200 bg-slate-50 text-xs font-bold text-slate-700 uppercase">
@@ -687,9 +694,9 @@ function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
                     <p className="font-bold text-slate-900">{b.nama}</p>
                     <p className="text-xs text-slate-500">{courseName(b.courseId)}</p>
                   </td>
-                  <td className="px-5 py-4 text-slate-700 font-medium">{b.tanggal}</td>
+                  <td className="px-5 py-4 text-slate-700 font-medium tabular-nums">{b.tanggal}</td>
                   <td className="px-5 py-4 text-slate-600">{b.format}</td>
-                  <td className="px-5 py-4 text-slate-600">{b.kuota}</td>
+                  <td className="px-5 py-4 text-slate-600 tabular-nums">{b.kuota}</td>
                   <td className="px-5 py-4">
                     <span className={`inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${statusWarna(b.status)}`}>
                       {b.status}
@@ -699,6 +706,7 @@ function Jadwal({ onDaftar }: { onDaftar: (id: string) => void }) {
                     <button
                       type="button"
                       onClick={() => onDaftar(b.courseId)}
+                      aria-label={`Pilih kursi untuk ${b.nama}`}
                       className="rounded-lg border border-[#1877f2] bg-white px-3.5 py-1.5 text-xs font-bold text-[#1877f2] transition-colors hover:bg-[#1877f2] hover:text-white"
                     >
                       Pilih Kursi
@@ -897,7 +905,7 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
     : '';
 
   const inputKelas =
-    'w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20 focus-visible:outline-none';
+    'w-full rounded-lg border border-slate-300 bg-white px-3.5 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 focus:border-[#1877f2] focus:ring-2 focus:ring-[#1877f2]/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#1877f2] focus-visible:ring-offset-1 transition-shadow';
 
   return (
     <section id="daftar" className="scroll-mt-20 border-b border-slate-200 bg-[#f0f2f5] py-16">
@@ -1179,13 +1187,13 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#f0f2f5] text-slate-800">
-      <Header />
       <a
         href="#konten"
-        className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[#1877f2] focus:px-4 focus:py-2 focus:font-semibold focus:text-white"
+        className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-[#1877f2] focus:px-4 focus:py-2 focus:font-semibold focus:text-white focus:shadow-md focus:outline-none focus:ring-2 focus:ring-white"
       >
         Lewati ke konten utama
       </a>
+      <Header />
       <main id="konten">
         <HeroPosterShowcase />
         <MentorSection />
@@ -1210,7 +1218,7 @@ export default function App() {
         target="_blank"
         rel="noreferrer"
         aria-label="Chat WhatsApp dengan admin academy"
-        className="fixed bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#1877f2] p-3 text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#166fe5]"
+        className="fixed bottom-5 right-5 flex h-12 w-12 items-center justify-center rounded-full bg-[#1877f2] p-3 text-white shadow-lg transition-transform hover:scale-105 hover:bg-[#166fe5] focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-blue-300 focus-visible:ring-offset-2"
       >
         <MessageCircle size={24} aria-hidden="true" />
       </a>
