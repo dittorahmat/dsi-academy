@@ -27,6 +27,7 @@ import {
   courses,
   faqs,
   instructors,
+  LYNK_ID_REGISTRATION_URL,
   testimonials,
   umkmTraining,
   waLink,
@@ -72,13 +73,17 @@ function Header() {
         </nav>
         <div className="flex items-center gap-3">
           <a
-            href="#program-ai"
+            href={LYNK_ID_REGISTRATION_URL}
+            target="_blank"
+            rel="noreferrer"
             className="hidden rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3.5 py-2 text-xs font-semibold text-[#1877f2] transition-colors hover:bg-[#dbeafe] sm:inline-block"
           >
             Coding with AI Rp 350rb
           </a>
           <a
-            href="#daftar"
+            href={LYNK_ID_REGISTRATION_URL}
+            target="_blank"
+            rel="noreferrer"
             className="hidden rounded-lg bg-[#1877f2] px-4 py-2 text-sm font-semibold text-white shadow-xs transition-colors hover:bg-[#166fe5] md:inline-block"
           >
             Daftar Sekarang
@@ -107,14 +112,18 @@ function Header() {
             </a>
           ))}
           <a
-            href="#program-ai"
+            href={LYNK_ID_REGISTRATION_URL}
+            target="_blank"
+            rel="noreferrer"
             onClick={() => setOpen(false)}
             className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#1877f2]"
           >
             Pelatihan Coding with AI — Rp 350.000
           </a>
           <a
-            href="#daftar"
+            href={LYNK_ID_REGISTRATION_URL}
+            target="_blank"
+            rel="noreferrer"
             onClick={() => setOpen(false)}
             className="mt-2 block rounded-lg bg-[#1877f2] px-3 py-2.5 text-center text-[15px] font-semibold text-white"
           >
@@ -135,16 +144,16 @@ function HeroPosterShowcase() {
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
           {/* Kolom Kiri: Tampilan Poster */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="group relative w-full max-w-[420px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
-              <a href="/Ads_TrainingIT.webp" target="_blank" rel="noreferrer" className="block relative">
+            <div className="group relative w-full max-w-[440px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
+              <a href="/Ads_TrainingIT_ver2.webp" target="_blank" rel="noreferrer" className="block relative aspect-square">
                 <picture>
-                  <source srcSet="/Ads_TrainingIT.webp" type="image/webp" />
+                  <source srcSet="/Ads_TrainingIT_ver2.webp" type="image/webp" />
                   <img
-                    src="/Ads_TrainingIT.png"
-                    alt="Poster Resmi Pelatihan Praktis Coding with AI"
-                    className="w-full h-auto rounded-xl object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+                    src="/Ads_TrainingIT_ver2.png"
+                    alt="Poster Resmi Pelatihan Praktis Coding with AI (Versi Terbaru)"
+                    className="w-full h-full rounded-xl object-contain transition-transform duration-300 group-hover:scale-[1.01]"
                     loading="eager"
-                    width="800"
+                    width="1200"
                     height="1200"
                   />
                 </picture>
@@ -264,6 +273,145 @@ function HeroPosterShowcase() {
               </p>
             </div>
           </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ------------------------------ profil mentor ----------------------------- */
+
+function MentorSection() {
+  return (
+    <section id="instruktur" className="scroll-mt-20 border-b border-slate-200 bg-white py-14 md:py-18">
+      <div className="mx-auto max-w-6xl px-5">
+        <div className="text-center max-w-3xl mx-auto">
+          <span className="inline-block rounded-full bg-blue-50 border border-blue-200 px-3.5 py-1 text-xs font-bold text-[#1877f2]">
+            Instruktur & Mentor Praktisi Riil
+          </span>
+          <h2 className="mt-3 text-2xl md:text-3xl font-bold text-slate-900">
+            Belajar Langsung dari Praktisi Berpengalaman 15+ Tahun
+          </h2>
+          <p className="mt-2 text-sm text-slate-600 leading-relaxed">
+            Bukan sekadar teori. Mentor kami adalah senior lead engineer dan konsultan aktif yang mengawal sistem data enterprise di perusahaan telekomunikasi, retail besar, dan proyek global.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-8 md:grid-cols-2">
+          {instructors.map((m) => (
+            <div
+              key={m.nama}
+              className="card-hover flex flex-col rounded-2xl border border-slate-200 bg-slate-50/50 p-6 md:p-7 shadow-xs"
+            >
+              <div className="flex flex-col sm:flex-row items-center sm:items-start gap-5">
+                <div className="relative shrink-0">
+                  <picture>
+                    <source srcSet={m.foto} type="image/webp" />
+                    <img
+                      src={m.foto}
+                      alt={`Foto mentor ${m.nama}`}
+                      className="h-28 w-28 rounded-2xl object-cover object-top border-2 border-white shadow-md ring-1 ring-slate-200"
+                      width="112"
+                      height="112"
+                      loading="lazy"
+                    />
+                  </picture>
+                  <span className="absolute -bottom-2 -right-2 rounded-full bg-[#1877f2] px-2 py-0.5 text-[10px] font-bold text-white shadow-xs">
+                    {m.pengalaman}
+                  </span>
+                </div>
+
+                <div className="text-center sm:text-left flex-1">
+                  <h3 className="font-display text-xl font-bold text-slate-900">{m.nama}</h3>
+                  <p className="mt-0.5 text-xs font-bold text-[#1877f2]">{m.peran}</p>
+                  {m.gelar ? (
+                    <p className="mt-1 flex items-center justify-center sm:justify-start gap-1.5 text-xs text-slate-500">
+                      <GraduationCap size={14} className="text-slate-400" aria-hidden="true" />
+                      {m.gelar}
+                    </p>
+                  ) : null}
+                  <div className="mt-2.5 rounded-lg border border-slate-200/80 bg-white px-3 py-1.5 text-left">
+                    <p className="text-[11px] font-mono text-slate-600 leading-snug">
+                      <span className="font-semibold text-slate-800">Keahlian:</span> {m.keahlian}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <p className="mt-4 text-xs md:text-[13px] leading-relaxed text-slate-600 border-t border-slate-200/60 pt-3.5">
+                {m.ringkasan}
+              </p>
+
+              <div className="mt-4 space-y-1.5 rounded-xl bg-white p-3.5 border border-slate-200/70 text-xs">
+                <p className="text-[11px] font-bold uppercase tracking-wider text-slate-700">Track Record Utama:</p>
+                {m.highlights.map((h, i) => (
+                  <p key={i} className="flex items-start gap-2 text-slate-600 leading-tight">
+                    <CheckCircle2 size={14} className="mt-0.5 shrink-0 text-[#1877f2]" aria-hidden="true" />
+                    <span>{h}</span>
+                  </p>
+                ))}
+              </div>
+
+              {/* Logo Sertifikasi Resmi Terverifikasi */}
+              {m.certifications && m.certifications.length > 0 ? (
+                <div className="mt-4 rounded-xl border border-slate-200/70 bg-white p-3.5">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-slate-700">
+                    Sertifikasi Resmi Terverifikasi:
+                  </p>
+                  <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                    {m.certifications.map((c) => (
+                      <div
+                        key={c.nama}
+                        title={c.nama}
+                        className="group relative flex h-11 items-center justify-center rounded-lg border border-slate-200/90 bg-slate-50/70 px-2.5 py-1 transition-all hover:border-[#1877f2]/50 hover:bg-blue-50/40 hover:shadow-2xs"
+                      >
+                        <picture>
+                          <source srcSet={c.logo} type="image/webp" />
+                          <img
+                            src={c.logo}
+                            alt={c.nama}
+                            className="h-8 w-auto max-w-[85px] object-contain transition-transform group-hover:scale-105"
+                            loading="lazy"
+                          />
+                        </picture>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+
+              {/* Tools Praktik Workshop */}
+              {m.toolsWorkshop && m.toolsWorkshop.length > 0 ? (
+                <div className="mt-3 rounded-xl border border-slate-200/70 bg-white p-3.5">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-slate-700">
+                    Tools Praktik Hands-on Workshop:
+                  </p>
+                  <div className="mt-2.5 flex flex-wrap items-center gap-2">
+                    {m.toolsWorkshop.map((t) => (
+                      <div
+                        key={t.nama}
+                        title={t.nama}
+                        className="group relative flex h-11 items-center gap-2 rounded-lg border border-slate-200/90 bg-slate-900 px-3 py-1 text-white transition-all hover:shadow-2xs"
+                      >
+                        <picture>
+                          <source srcSet={t.logo} type="image/webp" />
+                          <img
+                            src={t.logo}
+                            alt={t.nama}
+                            className="h-7 w-auto max-w-[90px] object-contain rounded"
+                            loading="lazy"
+                          />
+                        </picture>
+                        <span className="text-[11px] font-mono font-medium text-slate-200">
+                          {t.keterangan ?? t.nama}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              ) : null}
+            </div>
+          ))}
         </div>
       </div>
     </section>
@@ -618,34 +766,7 @@ function Corporate() {
   );
 }
 
-/* --------------------------- instruktur & testimoni ------------------------- */
-
-function Instruktur() {
-  return (
-    <section id="instruktur" className="scroll-mt-20 border-b border-slate-200 bg-white py-16">
-      <div className="mx-auto max-w-6xl px-5">
-        <h2 className="text-3xl font-bold text-slate-900">Didampingi Mentor Praktisi</h2>
-        <p className="mt-2 max-w-2xl text-slate-600">
-          Pengajar kami adalah praktisi data dan software engineer aktif yang sehari-hari berkutat dengan sistem skala riil.
-        </p>
-        <div className="mt-8 grid gap-6 md:grid-cols-3">
-          {instructors.map((ins) => (
-            <div key={ins.nama} className="card-hover rounded-xl border border-slate-200 bg-slate-50/60 p-6 shadow-2xs">
-              <p className="flex h-12 w-12 items-center justify-center rounded-xl bg-[#0b4596] font-display font-bold text-white shadow-xs">
-                {ins.inisial}
-              </p>
-              <h3 className="mt-4 font-display text-lg font-bold text-slate-900">{ins.nama}</h3>
-              <p className="mt-1 text-xs font-semibold text-[#1877f2]">{ins.peran}</p>
-              <p className="mt-2 text-xs text-slate-600 font-mono bg-white p-2 rounded border border-slate-200">
-                {ins.keahlian}
-              </p>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-}
+/* -------------------------------- testimoni --------------------------------- */
 
 function Testimoni() {
   return (
@@ -1067,6 +1188,7 @@ export default function App() {
       </a>
       <main id="konten">
         <HeroPosterShowcase />
+        <MentorSection />
         <Keunggulan />
         <Katalog
           filter={filter}
@@ -1078,7 +1200,6 @@ export default function App() {
         <Alur />
         <Jadwal onDaftar={pilihKelas} />
         <Corporate />
-        <Instruktur />
         <Testimoni />
         <Faq terbuka={faqTerbuka} onToggle={(i) => setFaqTerbuka((buka) => (buka === i ? null : i))} />
         <Daftar kelasDipilih={kelasDipilih} />

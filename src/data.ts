@@ -1,4 +1,5 @@
 export const WA_NUMBER = "6281319095252";
+export const LYNK_ID_REGISTRATION_URL = "https://lynk.id/dsintegraacademy/9d2gmkd0mde5";
 
 export interface UmkmSchedule {
   hari: string;
@@ -234,24 +235,71 @@ export const batches: Batch[] = [
   { id: "b5", courseId: "spark-bigdata", nama: "Batch 11 — Spark", tanggal: "10 Nov 2026", format: "Online", kuota: "Segera dibuka", status: "Segera hadir" },
 ];
 
-export const instructors = [
+export interface CredentialBadge {
+  nama: string;
+  logo: string;
+  keterangan?: string;
+}
+
+export interface Mentor {
+  nama: string;
+  gelar?: string;
+  peran: string;
+  pengalaman: string;
+  foto: string;
+  keahlian: string;
+  ringkasan: string;
+  highlights: string[];
+  certifications?: CredentialBadge[];
+  toolsWorkshop?: CredentialBadge[];
+  inisial: string;
+}
+
+export const instructors: Mentor[] = [
   {
-    nama: "Andi Pratama",
-    peran: "Lead Data Engineer · ex-E-commerce Unicorn",
-    keahlian: "Airflow · Spark · GCP · 8+ thn",
-    inisial: "AP",
+    nama: "Ditto R. K. Asnar, S.T.",
+    gelar: "Institut Teknologi Bandung (ITB)",
+    peran: "Lead Technical & Senior Data Engineer",
+    pengalaman: "17+ Tahun Pengalaman",
+    foto: "/mentors/ditto-asnar.webp",
+    keahlian: "Data Warehouse · Cloud ETL · Python · AI Tools · Full-stack App",
+    ringkasan: "Praktisi senior dengan pengalaman 17+ tahun merancang arsitektur Data Warehouse, pipeline ETL skala besar, hingga aplikasi full-stack modern. Memiliki rekam jejak memimpin proyek data di Daya Solusi Integra, konsultan IESR, Upwork USA (remote), Smartfren, hingga perbankan.",
+    highlights: [
+      "Lead Technical PT Daya Solusi Integra & Konsultan IESR",
+      "10+ tahun remote Data Engineer (Upwork USA: SSIS, Azure SQL, AWS MWAA, Airflow, dbt)",
+      "Ex-Datawarehouse Supervisor di Smartfren & Smart Telecom",
+    ],
+    certifications: [
+      { nama: "Python Certified", logo: "/badges/python.webp" },
+      { nama: "Microsoft Azure", logo: "/badges/azure.webp" },
+      { nama: "Apache Airflow", logo: "/badges/airflow.webp" },
+    ],
+    toolsWorkshop: [
+      { nama: "OpenCode AI Agent", logo: "/badges/opencode.webp", keterangan: "Tools Praktik Workshop AI Coding" },
+    ],
+    inisial: "DA",
   },
   {
-    nama: "Sari Dewi",
-    peran: "Analytics Engineer · Konsultan BUMN",
-    keahlian: "dbt · BigQuery · Modeling · 6+ thn",
-    inisial: "SD",
-  },
-  {
-    nama: "Budi Santoso",
-    peran: "Cloud Data Architect · AWS/GCP Certified",
-    keahlian: "Cloud · Terraform · Streaming · 10+ thn",
-    inisial: "BS",
+    nama: "Hendra Wahyudi, S.Kom",
+    gelar: "Universitas Bina Nusantara (BINUS)",
+    peran: "Manager IT Data Analytics & Project Management",
+    pengalaman: "15+ Tahun Pengalaman",
+    foto: "/mentors/hendra-wahyudi.webp",
+    keahlian: "Project Management · Agile/Scrum · DWH & ETL · SAS & Power BI · AI for Data",
+    ringkasan: "Leader di bidang Data Analytics dan IT Project Management dengan pengalaman 15+ tahun mengawal proyek kompleks perbankan, retail multinasional, dan telekomunikasi. Pemegang sertifikasi Microsoft Certified Professional (MCP SQL Server), SAS Certified Specialist, dan PSM 1 Scrum Master.",
+    highlights: [
+      "Project Manager Data & Lead Data Analytic di PT Mitra Mandiri Informatika",
+      "Ex-Manager IT Data Analytics di PT MAP Aktif Adiperkasa, Tbk",
+      "Ex-Lead Consultant IT Data Solution & Analytics di AIMIA Inc (Global Passion Award Winner)",
+    ],
+    certifications: [
+      { nama: "SAS Certified Specialist (Viya)", logo: "/badges/sas.webp" },
+      { nama: "Professional Scrum Master (PSM I)", logo: "/badges/scrum.webp" },
+      { nama: "MS Certified: Implementing DWH", logo: "/badges/ms-sql-dwh.webp" },
+      { nama: "MS Certified: Querying SQL Server", logo: "/badges/ms-sql-query.webp" },
+      { nama: "Microsoft Certified Professional", logo: "/badges/mcp.webp" },
+    ],
+    inisial: "HW",
   },
 ];
 
