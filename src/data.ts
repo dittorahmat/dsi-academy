@@ -259,11 +259,11 @@ export const instructors: Mentor[] = [
   {
     nama: "Ditto R. K. Asnar, S.T.",
     gelar: "Institut Teknologi Bandung (ITB)",
-    peran: "Lead Technical & Senior Data Engineer",
+    peran: "Lead Technical",
     pengalaman: "17+ Tahun Pengalaman",
     foto: "/mentors/ditto-asnar.webp",
     keahlian: "Data Warehouse · Cloud ETL · Python · AI Tools · Full-stack App",
-    ringkasan: "Praktisi senior dengan pengalaman 17+ tahun merancang arsitektur Data Warehouse, pipeline ETL skala besar, hingga aplikasi full-stack modern. Memiliki rekam jejak memimpin proyek data di Daya Solusi Integra, konsultan IESR, Upwork USA (remote), Smartfren, hingga perbankan.",
+    ringkasan: "Praktisi senior dengan pengalaman 17+ tahun merancang arsitektur Data Warehouse, pipeline ETL skala besar, hingga aplikasi full-stack modern dengan bantuan AI Coding Tools. Memiliki rekam jejak memimpin proyek data di Daya Solusi Integra, konsultan IESR, Upwork USA (remote), Smartfren, hingga perbankan.",
     highlights: [
       "Lead Technical PT Daya Solusi Integra & Konsultan IESR",
       "10+ tahun remote Data Engineer (Upwork USA: SSIS, Azure SQL, AWS MWAA, Airflow, dbt)",
