@@ -5,6 +5,8 @@ import {
   CalendarDays,
   CheckCircle2,
   ChevronDown,
+  ChevronLeft,
+  ChevronRight,
   Clock,
   ExternalLink,
   GraduationCap,
@@ -78,7 +80,7 @@ function Header() {
             rel="noreferrer"
             className="hidden rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3.5 py-2 text-xs font-semibold text-[#135cb8] transition-colors hover:bg-[#dbeafe] sm:inline-block"
           >
-            Coding with AI Rp 350rb
+            Coding with AI Rp 99rb
           </a>
           <a
             href={LYNK_ID_REGISTRATION_URL}
@@ -119,7 +121,7 @@ function Header() {
             onClick={() => setOpen(false)}
             className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#135cb8]"
           >
-            Pelatihan Coding with AI — Rp 350.000
+            Pelatihan Coding with AI — Rp 99.000 (1 Hari)
           </a>
           <a
             href={LYNK_ID_REGISTRATION_URL}
@@ -138,46 +140,109 @@ function Header() {
 
 /* ---------------------------- hero & poster showcase ------------------------------ */
 
-function HeroPosterShowcase() {
+/* ---------------------------- hero & poster carousel ------------------------------ */
+
+function HeroPosterCarousel() {
+  const [slideAktif, setSlideAktif] = useState(0);
+  const slides = umkmTraining.carouselSlides;
+
+  function prevSlide() {
+    setSlideAktif((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
+  }
+
+  function nextSlide() {
+    setSlideAktif((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
+  }
+
+  const slideSekarang = slides[slideAktif] ?? slides[0];
+
   return (
     <section id="program-ai" className="relative border-b border-slate-200 bg-white py-12 md:py-16 overflow-hidden">
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          {/* Kolom Kiri: Tampilan Poster */}
+          {/* Kolom Kiri: Interactive Poster Carousel */}
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="group relative w-full max-w-[440px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
-              <a href="/Ads_TrainingIT_ver3.webp" target="_blank" rel="noreferrer" className="block relative aspect-square">
+              {/* Gambar Carousel */}
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-100">
                 <picture>
-                  <source srcSet="/Ads_TrainingIT_ver3.webp" type="image/webp" />
+                  <source srcSet={slideSekarang.srcWebp} type="image/webp" />
                   <img
-                    src="/Ads_TrainingIT_ver3.png"
-                    alt="Poster Resmi Pelatihan Praktis Coding with AI (Versi Terbaru)"
-                    className="w-full h-full rounded-xl object-contain transition-transform duration-300 group-hover:scale-[1.01]"
+                    src={slideSekarang.srcPng}
+                    alt={slideSekarang.judul}
+                    className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.01]"
                     loading="eager"
                     width="1200"
                     height="1200"
                   />
                 </picture>
-                <div className="absolute inset-0 flex items-center justify-center rounded-xl bg-slate-900/40 opacity-0 backdrop-blur-[2px] transition-opacity group-hover:opacity-100">
-                  <span className="inline-flex items-center gap-2 rounded-lg bg-white px-4 py-2 text-xs font-bold text-slate-900 shadow-md">
-                    <ExternalLink size={15} aria-hidden="true" /> Buka Poster Resolusi Penuh
-                  </span>
+
+                {/* Tombol Navigasi Carousel */}
+                <button
+                  type="button"
+                  onClick={prevSlide}
+                  aria-label="Slide sebelumnya"
+                  className="absolute left-2.5 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/70 text-white backdrop-blur-xs transition hover:bg-slate-900 hover:scale-110 shadow-md"
+                >
+                  <ChevronLeft size={20} aria-hidden="true" />
+                </button>
+
+                <button
+                  type="button"
+                  onClick={nextSlide}
+                  aria-label="Slide berikutnya"
+                  className="absolute right-2.5 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/70 text-white backdrop-blur-xs transition hover:bg-slate-900 hover:scale-110 shadow-md"
+                >
+                  <ChevronRight size={20} aria-hidden="true" />
+                </button>
+
+                {/* Badge Penunjuk Slide */}
+                <div className="absolute top-3 left-3 rounded-full bg-slate-900/75 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
+                  Slide {slideAktif + 1} / {slides.length}
                 </div>
-              </a>
-              <p className="py-2 text-center text-[11px] font-medium text-slate-500">
-                Klik poster untuk memperbesar / mengunduh resolusi asli
-              </p>
+
+                {/* Tombol Perbesar Resolusi Penuh */}
+                <a
+                  href={slideSekarang.srcWebp}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-bold text-slate-900 shadow backdrop-blur-xs hover:bg-white"
+                >
+                  <ExternalLink size={14} aria-hidden="true" /> Buka Full
+                </a>
+              </div>
+
+              {/* Dots Pagination */}
+              <div className="mt-3 flex items-center justify-center gap-2">
+                {slides.map((s, idx) => (
+                  <button
+                    key={s.id}
+                    type="button"
+                    onClick={() => setSlideAktif(idx)}
+                    aria-label={`Pilih ${s.judul}`}
+                    className={`h-2.5 rounded-full transition-all ${
+                      idx === slideAktif ? 'w-8 bg-[#1877f2]' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
+                    }`}
+                  />
+                ))}
+              </div>
+
+              {/* Keterangan Slide Terpilih */}
+              <div className="mt-2 text-center">
+                <p className="font-display text-xs font-bold text-slate-900">{slideSekarang.judul}</p>
+                <p className="text-[11px] text-slate-500">{slideSekarang.subjudul}</p>
+              </div>
             </div>
 
             {/* Badge Jaminan Kualitas */}
-            <div className="mt-4 grid grid-cols-2 gap-2 w-full max-w-[420px] text-center text-xs">
+            <div className="mt-4 grid grid-cols-2 gap-2 w-full max-w-[440px] text-center text-xs">
               <div className="rounded-lg border border-slate-200 bg-slate-50 py-2 px-1">
-                <p className="font-bold text-slate-800">Hands-on Project</p>
-                <p className="text-[10px] text-slate-500">Praktik langsung buat sistem</p>
+                <p className="font-bold text-slate-800">1 Hari Intensif</p>
+                <p className="text-[10px] text-slate-500">Sabtu, 3 Okt (09.00–15.00)</p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-slate-50 py-2 px-1">
-                <p className="font-bold text-slate-800">100% Live Practice</p>
-                <p className="text-[10px] text-slate-500">via Google Meet + Rekaman</p>
+                <p className="font-bold text-slate-800">Full Source Code</p>
+                <p className="text-[10px] text-slate-500">POS, Dashboard & Rekaman</p>
               </div>
             </div>
           </div>
@@ -187,7 +252,7 @@ function HeroPosterShowcase() {
             <div>
               <div className="flex flex-wrap items-center justify-between gap-2 border-b border-slate-100 pb-3">
                 <span className="inline-flex items-center gap-1.5 rounded-full border border-blue-200 bg-blue-50 px-3.5 py-1 text-xs font-bold text-[#1877f2]">
-                  <Sparkles size={14} aria-hidden="true" /> Batch Resmi Mulai 3 Oktober 2026
+                  <Sparkles size={14} aria-hidden="true" /> Batch 1 Hari: Sabtu, 3 Oktober 2026
                 </span>
                 <span className="text-xs font-medium text-slate-500">Format: 100% Online via Google Meet</span>
               </div>
@@ -199,13 +264,13 @@ function HeroPosterShowcase() {
                 Untuk Fresh Graduate IT, Pengalaman IT yang Ingin Explore AI, Pelaku UMKM & Umum
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                Bangun skill digital terapan, kuasai bantuan AI tools modern, dan ciptakan solusi nyata tanpa ribet. Pelatihan ini dirancang praktis, mudah dipahami, dan langsung menghasilkan aplikasi siap pakai.
+                Bangun skill digital terapan, kuasai bantuan AI tools modern, dan ciptakan solusi nyata tanpa ribet. Pelatihan 1 hari intensif dirancang praktis, mudah dipahami, dan langsung menghasilkan aplikasi siap pakai.
               </p>
 
               {/* Bonus 3 Aplikasi */}
               <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
                 <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
-                  <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial 3 Aplikasi Bisnis Siap Pakai:
+                  <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial Aplikasi Bisnis & Dashboard Siap Pakai:
                 </p>
                 <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-3 text-xs">
                   {umkmTraining.bonusAplikasi.map((app) => (
@@ -217,21 +282,21 @@ function HeroPosterShowcase() {
                 </div>
               </div>
 
-              {/* Jadwal 4 Pertemuan (Akurat & Terverifikasi) */}
+              {/* Jadwal 1 Hari Intensif */}
               <div className="mt-5 space-y-2">
                 <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
-                  <CalendarDays size={16} className="text-[#1877f2]" aria-hidden="true" /> Jadwal Live 4 Sesi (Google Meet):
+                  <CalendarDays size={16} className="text-[#1877f2]" aria-hidden="true" /> Jadwal Live Pelatihan (Google Meet):
                 </p>
-                <div className="grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs">
+                <div className="grid grid-cols-1 gap-2 text-xs">
                   {umkmTraining.jadwal.map((j) => (
-                    <div key={j.tanggal} className="flex items-start justify-between rounded-xl border border-slate-200 bg-white p-3 shadow-2xs">
+                    <div key={j.tanggal} className="flex items-center justify-between rounded-xl border border-slate-200 bg-white p-3.5 shadow-2xs">
                       <div>
-                        <span className="font-bold text-slate-900">{j.hari}</span>
-                        <span className="block text-[11px] text-slate-500">{j.tanggal}</span>
+                        <span className="font-bold text-slate-900">{j.hari}, {j.tanggal}</span>
+                        <span className="block text-[11px] text-slate-500">{j.catatan}</span>
                       </div>
                       <div className="text-right">
-                        <span className="font-mono font-bold tabular-nums text-[#1877f2]">{j.jam}</span>
-                        {j.catatan ? <span className="block text-[10px] text-slate-500">{j.catatan}</span> : null}
+                        <span className="font-mono font-bold tabular-nums text-[#1877f2] text-sm">{j.jam}</span>
+                        <span className="block text-[10px] text-emerald-600 font-medium">Live Praktik + Tanya Jawab</span>
                       </div>
                     </div>
                   ))}
@@ -243,34 +308,36 @@ function HeroPosterShowcase() {
             <div className="mt-8 rounded-2xl border-2 border-[#1877f2]/20 bg-white p-5 shadow-sm ring-4 ring-[#1877f2]/5">
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div>
-                  <p className="text-xs font-medium text-slate-500">Investasi Pelatihan (Promo Batch Oktober):</p>
+                  <p className="text-xs font-medium text-slate-500">Investasi Pelatihan (Promo Spesial):</p>
                   <div className="flex items-baseline gap-2">
                     <span className="text-sm text-slate-400 line-through tabular-nums">{umkmTraining.hargaCoret}</span>
                     <span className="font-display text-3xl font-extrabold tabular-nums text-[#1877f2]">{umkmTraining.harga}</span>
-                    <span className="text-xs font-semibold text-slate-600">/ peserta (4 sesi lengkap)</span>
+                    <span className="text-xs font-semibold text-slate-600">/ peserta (1 hari intensif tuntas)</span>
                   </div>
                 </div>
 
                 <div className="flex flex-wrap gap-2.5">
                   <a
-                    href={waLink('Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Batch 3-10 Oktober) seharga Rp 350.000.')}
+                    href={LYNK_ID_REGISTRATION_URL}
                     target="_blank"
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl bg-[#1877f2] px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-[#166fe5] hover:shadow"
                   >
-                    <MessageCircle size={18} aria-hidden="true" />
-                    Daftar Sekarang via WA
+                    Daftar Sekarang (Rp 99.000)
                   </a>
                   <a
-                    href="#kelas"
+                    href={waLink(umkmTraining.waMessage)}
+                    target="_blank"
+                    rel="noreferrer"
                     className="inline-flex items-center gap-1.5 rounded-xl border border-slate-300 bg-white px-4 py-3 text-xs font-semibold text-slate-700 transition-colors hover:bg-slate-50"
                   >
-                    Lihat Program Data Eng
+                    <MessageCircle size={16} aria-hidden="true" />
+                    Tanya via WA
                   </a>
                 </div>
               </div>
               <p className="mt-2 text-center sm:text-left text-[11px] text-slate-500">
-                Pendaftaran & konsultasi jadwal resmi langsung terhubung dengan WhatsApp Mas Rahmat (+62 813-1909-5252).
+                Pendaftaran resmi via Lynk.id / WhatsApp Mas Rahmat (+62 813-1909-5252).
               </p>
             </div>
           </div>
@@ -1018,7 +1085,7 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
                 aria-describedby={error.kelas ? 'f-kelas-err' : undefined}
               >
                 <option value="">Pilih program</option>
-                <option value="umkm-batch">Pelatihan UMKM: Kasir, Inventory & AI — Rp 350.000</option>
+                <option value="umkm-batch">Pelatihan Coding with AI (1 Hari) — Rp 99.000</option>
                 {courses.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.judul} — {c.harga}
@@ -1195,7 +1262,7 @@ export default function App() {
       </a>
       <Header />
       <main id="konten">
-        <HeroPosterShowcase />
+        <HeroPosterCarousel />
         <MentorSection />
         <Keunggulan />
         <Katalog

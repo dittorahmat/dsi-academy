@@ -14,6 +14,14 @@ export interface UmkmAppBonus {
   fitur: string[];
 }
 
+export interface CarouselSlide {
+  id: string;
+  judul: string;
+  subjudul: string;
+  srcWebp: string;
+  srcPng: string;
+}
+
 export interface UmkmTrainingData {
   judul: string;
   tagline: string;
@@ -24,6 +32,7 @@ export interface UmkmTrainingData {
   targetPeserta: string[];
   materiPilar: string[];
   bonusAplikasi: UmkmAppBonus[];
+  carouselSlides: CarouselSlide[];
   jadwal: UmkmSchedule[];
   waMessage: string;
 }
@@ -31,10 +40,10 @@ export interface UmkmTrainingData {
 export const umkmTraining: UmkmTrainingData = {
   judul: "Pelatihan Praktis Coding with AI: Bangun Aplikasi Kasir, Stok & Akuntansi",
   tagline: "Untuk Fresh Graduate IT, Pengalaman IT yang Ingin Explore AI, Pelaku UMKM & Umum",
-  harga: "Rp 350.000",
+  harga: "Rp 99.000",
   hargaCoret: "Rp 1.000.000",
-  durasi: "4 Hari Intensif (Online via Google Meet)",
-  format: "100% Online Hands-on Project + Dukungan AI Tools",
+  durasi: "1 Hari Intensif (09.00 – 15.00 WIB via Google Meet)",
+  format: "100% Online Hands-on Project + Full Source Code & AI Prompt",
   targetPeserta: [
     "Fresh Graduate IT & Mahasiswa Teknik",
     "Pengalaman IT yang ingin explore AI & modern tools",
@@ -63,33 +72,38 @@ export const umkmTraining: UmkmTrainingData = {
       fitur: ["Pemasukan & pengeluaran", "Arus kas sederhana", "Laporan laba rugi instan"],
     },
   ],
-  jadwal: [
+  carouselSlides: [
     {
-      hari: "Hari 1 (Sabtu)",
-      tanggal: "3 Oktober 2026",
-      jam: "08.30 – 14.00 WIB",
-      catatan: "Ada 2x break istirahat",
+      id: "flyer-pos",
+      judul: "Gratis Aplikasi POS (Kasir)",
+      subjudul: "Bonus source code sistem kasir lengkap & siap pakai",
+      srcWebp: "/carousel/flyer-gratis-pos.webp",
+      srcPng: "/carousel/Flyer Gratis POS.png",
     },
     {
-      hari: "Hari 2 (Selasa)",
-      tanggal: "6 Oktober 2026",
-      jam: "20.00 – 22.00 WIB",
-      catatan: "Sesi malam santai",
+      id: "flyer-dashboard",
+      judul: "Gratis Dashboard Analitik",
+      subjudul: "Bonus sistem visualisasi & reporting penjualan instan",
+      srcWebp: "/carousel/flyer-gratis-dashboard.webp",
+      srcPng: "/carousel/Flyer Gratis Dashboard 2.png",
     },
     {
-      hari: "Hari 3 (Kamis)",
-      tanggal: "8 Oktober 2026",
-      jam: "20.00 – 22.00 WIB",
-      catatan: "Sesi malam santai",
-    },
-    {
-      hari: "Hari 4 (Sabtu)",
-      tanggal: "10 Oktober 2026",
-      jam: "10.00 – 12.00 WIB",
-      catatan: "Demo & kelulusan",
+      id: "flyer-course",
+      judul: "Kurikulum & Jadwal Kursus",
+      subjudul: "1 Hari tuntas kuasai Coding with AI dari nol sampai live",
+      srcWebp: "/carousel/flyer-course.webp",
+      srcPng: "/carousel/Flyer Course 2.png",
     },
   ],
-  waMessage: "Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Batch 3-10 Oktober) seharga Rp 350.000.",
+  jadwal: [
+    {
+      hari: "Sabtu",
+      tanggal: "3 Oktober 2026",
+      jam: "09.00 – 15.00 WIB",
+      catatan: "1 Hari Intensif (Jeda Ishoma 12.00–13.00)",
+    },
+  ],
+  waMessage: "Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Sabtu, 3 Oktober 2026) seharga Rp 99.000.",
 };
 
 export interface Course {
