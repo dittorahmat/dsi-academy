@@ -1,4 +1,4 @@
-export const WA_NUMBER = "6281319095252";
+export const WA_NUMBER = "6281385808284";
 export const LYNK_ID_REGISTRATION_URL = "https://lynk.id/dsintegraacademy/9d2gmkd0mde5";
 
 export interface UmkmSchedule {
@@ -32,67 +32,52 @@ export interface UmkmTrainingData {
   targetPeserta: string[];
   materiPilar: string[];
   bonusAplikasi: UmkmAppBonus[];
+  posterWebp: string;
+  posterPng: string;
   carouselSlides: CarouselSlide[];
   jadwal: UmkmSchedule[];
   waMessage: string;
 }
 
 export const umkmTraining: UmkmTrainingData = {
-  judul: "Pelatihan Praktis Coding with AI: Bangun Aplikasi Kasir, Stok & Akuntansi",
-  tagline: "Untuk Fresh Graduate IT, Pengalaman IT yang Ingin Explore AI, Pelaku UMKM & Umum",
-  harga: "Rp 99.000",
-  hargaCoret: "Rp 1.000.000",
+  judul: "Pelatihan Praktis Coding with AI: Belajar Membuat Aplikasi dengan Code AI",
+  tagline: "Punya Skill Baru, Buka Peluang Penghasilan Baru",
+  harga: "Rp 35.000",
+  hargaCoret: "Rp 350.000",
   durasi: "1 Hari Intensif (09.00 – 15.00 WIB via Google Meet)",
-  format: "100% Online Hands-on Project + Full Source Code & AI Prompt",
+  format: "100% Online Hands-on Project + Full Source Code & Template",
   targetPeserta: [
-    "Fresh Graduate IT & Mahasiswa Teknik",
-    "Pengalaman IT yang ingin explore AI & modern tools",
-    "Pelaku UMKM, pemilik bisnis, & umum",
+    "Pelajar / Mahasiswa",
+    "Fresh Graduate IT & Non-IT",
+    "Profesional & Karyawan",
+    "UMKM & Pengusaha",
+    "Umum",
   ],
   materiPilar: [
-    "Coding with AI: Memanfaatkan AI tools untuk produktivitas koding & kreativitas",
-    "Pengenalan Data Analyst & Data Engineering: Memahami teknologi data & pipeline",
-    "Pengenalan Project Management: Dasar-dasar manajemen proyek untuk karier & bisnis",
-    "Hands-on Project: Langsung praktik membuat aplikasi bisnis siap pakai",
+    "Coding dengan AI: Buat aplikasi lebih mudah dengan bantuan AI",
+    "Pengenalan Data Analyst: Kelola data, buat insight, ambil keputusan",
   ],
   bonusAplikasi: [
     {
-      nama: "POS (Kasir)",
-      keterangan: "Aplikasi Kasir Sederhana",
+      nama: "1 Aplikasi POS (Kasir)",
+      keterangan: "Siap Pakai untuk Bisnis Anda",
       fitur: ["Transaksi penjualan cepat", "Cetak struk / nota", "Laporan penjualan harian"],
     },
     {
-      nama: "Inventory (Stok)",
-      keterangan: "Pengelolaan Stok Barang",
-      fitur: ["Master produk", "Pencatatan stok masuk & keluar", "Peringatan stok minimum"],
-    },
-    {
-      nama: "Akuntansi (Keuangan)",
-      keterangan: "Pencatatan Keuangan Praktis",
-      fitur: ["Pemasukan & pengeluaran", "Arus kas sederhana", "Laporan laba rugi instan"],
+      nama: "Puluhan Template Dashboard",
+      keterangan: "Untuk Analisis Bisnis, Laporan & Pengambilan Keputusan",
+      fitur: ["Visualisasi performa penjualan", "Laporan siap presentasi", "Mudah dikustomisasi"],
     },
   ],
+  posterWebp: "/flyer-it-course.webp",
+  posterPng: "/flyer-it-course.png",
   carouselSlides: [
     {
-      id: "flyer-pos",
-      judul: "Gratis Aplikasi POS (Kasir)",
-      subjudul: "Bonus source code sistem kasir lengkap & siap pakai",
-      srcWebp: "/carousel/flyer-gratis-pos.webp",
-      srcPng: "/carousel/Flyer Gratis POS.png",
-    },
-    {
-      id: "flyer-dashboard",
-      judul: "Gratis Dashboard Analitik",
-      subjudul: "Bonus sistem visualisasi & reporting penjualan instan",
-      srcWebp: "/carousel/flyer-gratis-dashboard.webp",
-      srcPng: "/carousel/Flyer Gratis Dashboard 2.png",
-    },
-    {
-      id: "flyer-course",
-      judul: "Kurikulum & Jadwal Kursus",
-      subjudul: "1 Hari tuntas kuasai Coding with AI dari nol sampai live",
-      srcWebp: "/carousel/flyer-course.webp",
-      srcPng: "/carousel/Flyer Course 2.png",
+      id: "flyer-it-course",
+      judul: "Poster Pelatihan Coding with AI",
+      subjudul: "Mulai 3 Oktober 2026 via Google Meet",
+      srcWebp: "/flyer-it-course.webp",
+      srcPng: "/flyer-it-course.png",
     },
   ],
   jadwal: [
@@ -103,7 +88,7 @@ export const umkmTraining: UmkmTrainingData = {
       catatan: "1 Hari Intensif (Jeda Ishoma 12.00–13.00)",
     },
   ],
-  waMessage: "Halo Mas Rahmat (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Sabtu, 3 Oktober 2026) seharga Rp 99.000.",
+  waMessage: "Halo Mas Hendra (DSI Academy), saya ingin mendaftar Pelatihan Praktis Coding with AI (Sabtu, 3 Oktober 2026) seharga Rp 35.000.",
 };
 
 export interface Course {

@@ -121,7 +121,7 @@ function Header() {
             onClick={() => setOpen(false)}
             className="mt-2 block rounded-lg border border-[#1877f2]/30 bg-[#e7f3ff] px-3 py-2.5 text-center text-[15px] font-semibold text-[#135cb8]"
           >
-            Pelatihan Coding with AI — Rp 99.000 (1 Hari)
+            Pelatihan Coding with AI — Rp 35.000 (1 Hari)
           </a>
           <a
             href={LYNK_ID_REGISTRATION_URL}
@@ -140,36 +140,23 @@ function Header() {
 
 /* ---------------------------- hero & poster showcase ------------------------------ */
 
-/* ---------------------------- hero & poster carousel ------------------------------ */
+/* ---------------------------- hero & poster showcase ------------------------------ */
 
-function HeroPosterCarousel() {
-  const [slideAktif, setSlideAktif] = useState(0);
-  const slides = umkmTraining.carouselSlides;
-
-  function prevSlide() {
-    setSlideAktif((prev) => (prev === 0 ? slides.length - 1 : prev - 1));
-  }
-
-  function nextSlide() {
-    setSlideAktif((prev) => (prev === slides.length - 1 ? 0 : prev + 1));
-  }
-
-  const slideSekarang = slides[slideAktif] ?? slides[0];
-
+function HeroPosterShowcase() {
   return (
     <section id="program-ai" className="relative border-b border-slate-200 bg-white py-12 md:py-16 overflow-hidden">
       <div className="mx-auto max-w-6xl px-5">
         <div className="grid gap-10 lg:grid-cols-12 lg:items-start">
-          {/* Kolom Kiri: Interactive Poster Carousel */}
+          {/* Kolom Kiri: Poster Showcase */}
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="group relative w-full max-w-[440px] overflow-hidden rounded-2xl border border-slate-200 bg-slate-50 p-2 shadow-lg transition-all hover:shadow-xl">
-              {/* Gambar Carousel */}
+              {/* Gambar Poster */}
               <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-slate-100">
                 <picture>
-                  <source srcSet={slideSekarang.srcWebp} type="image/webp" />
+                  <source srcSet={umkmTraining.posterWebp} type="image/webp" />
                   <img
-                    src={slideSekarang.srcPng}
-                    alt={slideSekarang.judul}
+                    src={umkmTraining.posterPng}
+                    alt="Poster Pelatihan Coding with AI"
                     className="h-full w-full object-contain transition-transform duration-300 group-hover:scale-[1.01]"
                     loading="eager"
                     width="1200"
@@ -177,33 +164,14 @@ function HeroPosterCarousel() {
                   />
                 </picture>
 
-                {/* Tombol Navigasi Carousel */}
-                <button
-                  type="button"
-                  onClick={prevSlide}
-                  aria-label="Slide sebelumnya"
-                  className="absolute left-2.5 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/70 text-white backdrop-blur-xs transition hover:bg-slate-900 hover:scale-110 shadow-md"
-                >
-                  <ChevronLeft size={20} aria-hidden="true" />
-                </button>
-
-                <button
-                  type="button"
-                  onClick={nextSlide}
-                  aria-label="Slide berikutnya"
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 flex h-9 w-9 items-center justify-center rounded-full bg-slate-900/70 text-white backdrop-blur-xs transition hover:bg-slate-900 hover:scale-110 shadow-md"
-                >
-                  <ChevronRight size={20} aria-hidden="true" />
-                </button>
-
-                {/* Badge Penunjuk Slide */}
-                <div className="absolute top-3 left-3 rounded-full bg-slate-900/75 px-3 py-1 text-[11px] font-semibold text-white backdrop-blur-xs">
-                  Slide {slideAktif + 1} / {slides.length}
+                {/* Badge Promo */}
+                <div className="absolute top-3 left-3 rounded-full bg-emerald-600 px-3 py-1 text-[11px] font-bold text-white shadow backdrop-blur-xs">
+                  Promo Spesial Rp 35.000
                 </div>
 
                 {/* Tombol Perbesar Resolusi Penuh */}
                 <a
-                  href={slideSekarang.srcPng}
+                  href={umkmTraining.posterPng}
                   target="_blank"
                   rel="noreferrer"
                   className="absolute bottom-3 right-3 flex items-center gap-1.5 rounded-lg bg-white/90 px-3 py-1.5 text-xs font-bold text-slate-900 shadow backdrop-blur-xs hover:bg-white"
@@ -212,25 +180,10 @@ function HeroPosterCarousel() {
                 </a>
               </div>
 
-              {/* Dots Pagination */}
-              <div className="mt-3 flex items-center justify-center gap-2">
-                {slides.map((s, idx) => (
-                  <button
-                    key={s.id}
-                    type="button"
-                    onClick={() => setSlideAktif(idx)}
-                    aria-label={`Pilih ${s.judul}`}
-                    className={`h-2.5 rounded-full transition-all ${
-                      idx === slideAktif ? 'w-8 bg-[#1877f2]' : 'w-2.5 bg-slate-300 hover:bg-slate-400'
-                    }`}
-                  />
-                ))}
-              </div>
-
-              {/* Keterangan Slide Terpilih */}
+              {/* Keterangan Poster */}
               <div className="mt-2 text-center">
-                <p className="font-display text-xs font-bold text-slate-900">{slideSekarang.judul}</p>
-                <p className="text-[11px] text-slate-500">{slideSekarang.subjudul}</p>
+                <p className="font-display text-xs font-bold text-slate-900">Poster Resmi Pelatihan</p>
+                <p className="text-[11px] text-slate-500">Mulai 3 Oktober 2026 via Google Meet</p>
               </div>
             </div>
 
@@ -241,7 +194,7 @@ function HeroPosterCarousel() {
                 <p className="text-[10px] text-slate-500">Sabtu, 3 Okt (09.00–15.00)</p>
               </div>
               <div className="rounded-lg border border-slate-200 bg-slate-50 py-2 px-1">
-                <p className="font-bold text-slate-800">Full Source Code</p>
+                <p className="font-bold text-slate-800">Bonus Aplikasi & Template</p>
                 <p className="text-[10px] text-slate-500">POS, Dashboard & Rekaman</p>
               </div>
             </div>
@@ -258,21 +211,21 @@ function HeroPosterCarousel() {
               </div>
 
               <h1 className="mt-4 text-3xl font-extrabold leading-snug text-slate-900 sm:text-4xl">
-                Pelatihan Praktis Coding with AI: Solusi Nyata Karier & Bisnis Anda
+                Pelatihan Praktis Coding with AI: Belajar Membuat Aplikasi dengan Code AI
               </h1>
               <p className="mt-2 text-xs font-semibold text-[#1877f2]">
-                Untuk Fresh Graduate IT, Pengalaman IT yang Ingin Explore AI, Pelaku UMKM & Umum
+                Punya Skill Baru, Buka Peluang Penghasilan Baru
               </p>
               <p className="mt-3 text-sm leading-relaxed text-slate-600">
-                Bangun skill digital terapan, kuasai bantuan AI tools modern, dan ciptakan solusi nyata tanpa ribet. Pelatihan 1 hari intensif dirancang praktis, mudah dipahami, dan langsung menghasilkan aplikasi siap pakai.
+                Kuasai pembuatan aplikasi dengan bantuan Code AI dan pelajari analisis data praktis. Pelatihan 1 hari intensif dirancang langsung praktik, mudah dipahami dari nol, dan menghasilkan aplikasi siap pakai.
               </p>
 
-              {/* Bonus 3 Aplikasi */}
+              {/* Bonus Aplikasi & Template */}
               <div className="mt-5 rounded-xl border border-blue-100 bg-blue-50/50 p-4">
                 <p className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-800">
-                  <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial Aplikasi Bisnis & Dashboard Siap Pakai:
+                  <PackageCheck size={16} className="text-[#1877f2]" aria-hidden="true" /> Bonus Spesial Pelatihan:
                 </p>
-                <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-3 text-xs">
+                <div className="mt-2.5 grid grid-cols-1 gap-2 sm:grid-cols-2 text-xs">
                   {umkmTraining.bonusAplikasi.map((app) => (
                     <div key={app.nama} className="rounded-lg border border-slate-200 bg-white p-2.5 shadow-2xs">
                       <p className="font-bold text-slate-900">{app.nama}</p>
@@ -323,7 +276,7 @@ function HeroPosterCarousel() {
                     rel="noreferrer"
                     className="inline-flex items-center gap-2 rounded-xl bg-[#1877f2] px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:bg-[#166fe5] hover:shadow"
                   >
-                    Daftar Sekarang (Rp 99.000)
+                    Daftar Sekarang (Rp 35.000)
                   </a>
                   <a
                     href={waLink(umkmTraining.waMessage)}
@@ -337,7 +290,7 @@ function HeroPosterCarousel() {
                 </div>
               </div>
               <p className="mt-2 text-center sm:text-left text-[11px] text-slate-500">
-                Pendaftaran resmi via Lynk.id / WhatsApp Mas Rahmat (+62 813-1909-5252).
+                Pendaftaran resmi via Lynk.id / WhatsApp Mas Hendra (+62 813-8580-8284).
               </p>
             </div>
           </div>
@@ -983,7 +936,7 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
           </span>
           <h2 className="text-3xl font-bold text-slate-900">Mulai Belajar Bersama Kami</h2>
           <p className="mt-3 leading-relaxed text-sm text-slate-600">
-            Silakan lengkapi formulir pendaftaran. Data Anda akan disusun menjadi format WhatsApp otomatis dan langsung terhubung dengan admin resmi kami (0813-1909-5252).
+            Silakan lengkapi formulir pendaftaran. Data Anda akan disusun menjadi format WhatsApp otomatis dan langsung terhubung dengan admin resmi kami (0813-8580-8284).
           </p>
           <ul className="mt-6 space-y-3 text-sm text-slate-700">
             <li className="flex gap-3">
@@ -1085,7 +1038,7 @@ function Daftar({ kelasDipilih }: { kelasDipilih: string }) {
                 aria-describedby={error.kelas ? 'f-kelas-err' : undefined}
               >
                 <option value="">Pilih program</option>
-                <option value="umkm-batch">Pelatihan Coding with AI (1 Hari) — Rp 99.000</option>
+                <option value="umkm-batch">Pelatihan Coding with AI (1 Hari) — Rp 35.000</option>
                 {courses.map((c) => (
                   <option key={c.id} value={c.id}>
                     {c.judul} — {c.harga}
@@ -1225,7 +1178,7 @@ function Footer() {
         <div>
           <p className="text-xs font-bold uppercase tracking-wider text-slate-900">Kontak Resmi</p>
           <ul className="mt-3 space-y-2 text-xs text-slate-600">
-            <li>WhatsApp: 0813-1909-5252 (Admin Academy)</li>
+            <li>WhatsApp: 0813-8580-8284 (Mas Hendra / Admin Academy)</li>
             <li>Email: academy@dsintegra.co.id</li>
             <li>Jakarta, Indonesia — Layanan Online ke Seluruh Indonesia</li>
           </ul>
@@ -1262,7 +1215,7 @@ export default function App() {
       </a>
       <Header />
       <main id="konten">
-        <HeroPosterCarousel />
+        <HeroPosterShowcase />
         <MentorSection />
         <Keunggulan />
         <Katalog
